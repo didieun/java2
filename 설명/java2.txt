@@ -1,0 +1,4954 @@
+양진석 강사
+b-b0317@naver.com
+
+* 수업자료
+http://naver.me/FRcfyrrJ
+kg1234
+-------------------------------------------------------------------------
+
+20240708(월) 1일차
+
+*JAVA2 전체 과정
+1. 자바의 기본클래스 -> 2. 제네릭 프로그래밍 -> 3. 컬렉션 프레임워크
+-> 4. 자바 I / O(input / output) -> 5. Thread와 동기화 -> 6. Inner 클래스, 람다식
+
+이클립스 전체를 워크벤치라고함
+
+*******************************************************************************************
+package condition;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// if
+		
+		int a = 200;
+		
+		if(a == 100) {
+			System.out.println("a 는 100 입니다.");
+		} else {
+			System.out.println("a는 100이 아닙니다.");
+		}
+
+	}
+
+}
+
+
+************************************************************************************
+package condition;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		// switch
+		
+		int a = 7;
+		
+		//switch(data) -> data 는 정수, 문자, 문자열만 가능 실수는 올수가 없다.(또는 switch(a + 1) 넣을수있다)
+		
+		switch(a) {
+			case 1: System.out.println("숫자 1 입니다."); break;
+			case 2: System.out.println("숫자 2 입니다."); break;
+			case 3: System.out.println("숫자 3 입니다."); break;
+			case 4: System.out.println("숫자 4 입니다."); break;
+			default : System.out.println("숫자 1 ~ 4가 아닙니다.");
+		}
+
+	}
+
+}
+
+*********************************************************************************
+package condition;
+
+import java.util.Scanner;
+// ctrl + shift + o = import java.util.Scanner 불러올수 있다(단축키)
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("1 ~ 100 사이의 점수를 입력 : ");
+		int score = scan.nextInt();
+		
+		// switch 문
+		// 90 ~ 100 : A 학점
+		// 80 ~ 89 : B 학점
+		// 70 ~ 79 : C 학점
+		// 60 ~ 69 : D 학점
+		// 그외 : F 학점
+			
+		switch(score / 10) {
+			case 10 :
+			case 9 : System.out.println("A 학점"); break;
+			case 8 : System.out.println("B 학점"); break;
+			case 7 : System.out.println("C 학점"); break;
+			case 6 : System.out.println("D 학점"); break;
+			default : System.out.println("F 학점"); break;
+		}
+
+		scan.close();
+
+	}
+
+}
+
+******************************************************************************
+package loop;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// for 문 (반복문)
+		
+		int i;
+		
+		for(i = 1; i <= 5; i++) {
+			System.out.println("for문 안입니다. i : " + i);
+		}
+
+		System.out.println("for문을 나왔습니다. i : " + i);
+		
+		System.out.println();
+		
+		// for 안에서 j 를 선언함. 그러므로 for 안에서만 사용가능
+		for(int j = 1; j <= 5; j++) {
+			
+			System.out.println(j + " ");
+			
+		}
+		
+		System.out.println();
+	}
+
+}
+
+************************************************************************
+package loop;
+
+import java.util.Scanner;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		// while 문
+		
+		int i = 0;
+		
+		while(i < 5) {
+			System.out.println("while문 안입니다. i : " + i);
+			i ++;
+		}
+		
+		System.out.println("while문을 나왔습니다. i : " + i);
+		
+		System.out.println();
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("10 + 20 의 답을 입력해주세요.");
+		System.out.print("입력 : ");
+		int num = scan.nextInt();
+		
+		while(num != 30) {
+			System.out.println("정답이 틀렸습니다. 다시 입력해주세요.");
+			System.out.print("입력 : ");
+			num = scan.nextInt();
+		}
+		
+		System.out.println("정답입니다.");
+		System.out.println("입력하신 정답 : " + num);
+		scan.close();
+
+	}
+
+}
+
+*****************************************************************************
+package loop;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		// do - while 문
+		
+		int a = 100;
+		
+		while(a == 200) {
+			System.out.println("while문 안입니다.");
+		}
+		
+		System.out.println("while문 밖입니다.");
+		
+		System.out.println();
+		
+		do {
+			System.out.println("do ~ while문 안입니다.");
+		} while(a == 200); // 세미콜론
+		
+		System.out.println("do ~ while문 밖입니다.");
+
+	}
+
+}
+
+*************************************************************************
+package loop;
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		// while 문 break, continue
+		
+		int a = 0;
+		
+		// break -> 안에있는 코드는 실행하지 않고 반복문 실행종료
+		while(a < 10) {
+			System.out.println(a);
+			
+			if (a == 5) {
+				break; // a 가 5와 같으면 반복문 종료
+			}
+			
+			a++;
+		}
+
+		System.out.println();
+		
+		// continue -> 반복문 안에서만 사용가능 , 실행 흐름을 바꿈
+	
+		a = 0;
+		
+		// 아래는코드는 무한반복
+		while(a < 10) {
+			System.out.println(a);
+			
+			if (a == 5) {
+				continue;
+			}
+			
+			a++;
+		}
+		
+		while(a < 10) {
+			
+			a++;
+			
+			if (a == 5) {
+				continue;
+			}
+			
+			System.out.println(a);
+			
+		}
+	}
+
+}
+
+-------------------------------------------------------------------------
+20240709(화) 2일차
+
+*******************************************************************************
+package array;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// 배열(참조타입) - 선언과 동시에는 배열 생성 가능
+				int[] intArray1 = {1, 2, 3};
+				
+				// 배열 사용
+				System.out.println(intArray1[0]);
+				System.out.println(intArray1[1]);
+				System.out.println(intArray1[2]);
+				
+				System.out.println();
+				
+				// 배열은 선언한뒤에는 new(배열생성을 무조건 해줘야된다)
+				int[] intArray2 = null;
+				
+				intArray2 = new int[] {10, 20, 30};
+				
+				System.out.println(intArray2[0]);
+				System.out.println(intArray2[1]);
+				System.out.println(intArray2[2]);
+				
+				System.out.println();
+				
+				int[] intArray3 = new int[3];
+				// 기본초기값 - 정수는 0, 실수는 0.0, char 은 '0', boolean 은 false, 문자는 null
+				
+				intArray3[0] = 100;
+				intArray3[1] = 200;
+				intArray3[2] = 300;
+				
+				System.out.println(intArray3[0]);
+				System.out.println(intArray3[1]);
+				System.out.println(intArray3[2]);
+	}
+
+}
+*******************************************************************************
+package array;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		int[] intArray = {10, 20, 30, 40, 50, 60, 70};
+		
+		for(int i = 0; i < 7; i++) {
+			System.out.println(intArray[i]);
+		}
+		
+		System.out.println();
+		
+		// 배열의 길이
+		System.out.println(intArray.length);
+		
+		System.out.println();
+		
+		for(int i = 0; i < intArray.length; i++) {
+			System.out.println(intArray[i]);
+		}
+		
+		System.out.println();
+		
+		// 향상된 for 문
+		// for(배열의 요소를 저장할 변수선언 : 배열)
+		
+		for(int num : intArray) {
+			System.out.println(num);
+		}
+
+	}
+
+}
+*******************************************************************************
+package array;
+
+import java.util.Scanner;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+
+		int[] num = new int[5];
+		
+		for(int i = 0; i < 5; i++) {
+			System.out.print(i+1 + "번째 정수를 입력: ");
+			num[i] = scan.nextInt();
+		}
+		
+		int temp = 0;
+		
+		// *문제
+		// 이중 for 문, if 문 temp 변수를 사용하여
+		// num 배열의 요소들을 차례대로 작은수로 만들기
+		
+		for(int i = 0; i < 5; i++) {
+			for(int j = i + 1; j < 5; j++) {
+				if(num[i] > num[j] ) {
+					temp = num[i];
+					num[i] = num[j];
+					num[j] = temp;
+				}
+			}
+		}
+		
+		System.out.println("작은수로 정렬: " + num[0] + "," + num[1] + "," + num[2] + "," + num[3] + "," + num[4]);
+		
+		scan.close();
+ 	}
+
+}
+*******************************************************************************
+package method;
+
+public class Ex01 {
+	
+	public static void hello() {
+		for(int i = 0; i < 5; i++) {
+			System.out.println("Hello World");
+			
+			if(i == 2) {
+				return;
+				// return 값이 없는 void 메소드에서
+				// return 문을 사용하면 메소드 강제종료
+				
+				// for 문 종료 -> break;
+				// method 종료 -> return;
+				// 프로그램 강제 종료 -> System.exit( );
+			}
+		}
+	}
+	
+	public static int sum(int a, int b, int c) {
+		
+		return a + b + c;
+	}
+	
+	// 예를 들어 매개 변수가 100개 일때, 매개값을 가변적으로 받는 경우! 
+	
+	public static int sum2(int... nums) {
+		
+		// 매개변수를 배열값으로 변환한다.
+		int sum = 0;
+		
+		for(int i : nums) {
+			sum += i;
+		}
+		
+		return sum;
+	}
+
+	public static void main(String[] args) {
+		
+		hello(); // 메소드 호출
+		
+		int result = sum(10, 20, 50);
+		System.out.println(result);
+		
+		int result2 = sum2(1, 2, 3, 4, 5);
+		System.out.println(result2);
+	}
+
+}
+*******************************************************************************
+package method;
+
+public class Ex02 {
+	
+	// 메소드 오버로딩
+	// 같은 이름의 메소드를 여러개 선언하는 것
+	// 조건: 매개변수의 타입, 갯수, 순서 중 하나가 달라야 한다.
+	// ** 메소드 오버로딩 하는 이유! 하나의 이름으로 다양한 기능을 수행하기 위해
+	
+	public static void profile(String name) {
+		System.out.println("이름: " + name);
+	}
+	
+	public static void profile(String name, int age) {
+		System.out.println("이름: " + name);
+		System.out.println("나이: " + age);
+	}
+	
+
+	public static void main(String[] args) {
+		
+		profile("홍길동");
+		System.out.println();
+		profile("홍길동", 20);
+		
+	}
+
+}
+*******************************************************************************
+package clazz;
+
+class Student { // 설계도
+	// 클래스 안에는 구성멤버는
+	// 필드, 생성자, 메소드(기본적인 멤버)
+	
+	// 필드(속성) -> 현재상태 데이터!
+	String school = "IT 학교";
+	String name;
+	int age;
+	
+	// 생성자(객체 초기화) -> 기본생성자 추가 단축키 -> ctrl + 스페이스바 첫번째 엔터
+	public Student(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	// 메소드(기능)
+	public void studentProfile() {
+		System.out.println("학교: " + school);
+		System.out.println("이름: " + name);
+		System.out.println("나이: " + age);
+	}
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// 객체 생성
+		Student student = new Student("홍길동", 20);
+		
+		// 객체 사용 > 객체이름.필드;
+		System.out.println(student.school);
+		System.out.println(student.name);
+		System.out.println(student.age);
+		
+		// 객체 사용 > 객체이름.메소드 호출();
+		student.studentProfile();
+
+	}
+}
+*******************************************************************************
+package clazz;
+
+class Car {
+	private String color;
+	private int speed;
+	
+	// Getter, Setter 메서드 쉽게 만드는법
+	// class 안에서 마우스 오른쪽 버튼 클릭 -> source 클릭 -> Generate Getter and Setter 클릭 
+	// -> 필요한 Getter, Setter 선택후 Generate 하면됨!
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public int getSpeed() {
+		
+		if(speed < 30) {
+			speed = 30;
+		}
+		
+		return speed;
+	}
+	public void setSpeed(int speed) {
+		
+		// 필드값을 검증한뒤.. 
+		if(speed < 0 || speed > 200) {
+			return;
+		}
+		
+		this.speed = speed;
+	}	
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		Car myCar = new Car();
+		
+//		myCar.color = "빨강"; //private 를 접근제한자를 사용하면 필드값을 변경 못함!
+//		myCar.speed = 100; //private 를 접근제한자를 사용하면 필드값을 변경 못함!
+//		
+//		System.out.println("내 자동차 색상: " + myCar.color);
+//		System.out.println("내 자동차 속도: " + myCar.speed);
+//		System.out.println();
+		
+		myCar.setColor("검정");
+		myCar.setSpeed(20);
+		
+		System.out.println("내 자동차 색상: " + myCar.getColor());
+		System.out.println("내 자동차 속도: " + myCar.getSpeed());
+	}
+}
+*******************************************************************************
+-------------------------------------------------------------------------
+20240710(수) 3일차
+
+*******************************************************************************
+package clazz;
+
+class Parent { // 부모클래스
+	int parentField = 100;
+	
+	public void parentMethod() {
+		System.out.println("부모클래스 메소드");
+	}
+}
+
+class Child extends Parent { // 자식클래스
+	int childField = 200;
+	
+	public void childMethod() {
+		System.out.println("자식클래스 메소드");
+	}
+}
+
+public class Ex03 {
+	//상속
+
+	public static void main(String[] args) {
+		Child child = new Child();
+		
+		System.out.println(child.parentField);
+		System.out.println(child.childField);
+		
+		System.out.println();
+		
+		child.parentMethod();
+		child.childMethod();
+
+	}
+
+}
+*******************************************************************************
+package clazz;
+
+class Suv {
+	int speed = 100;
+	
+	public void run() {
+		System.out.println("SUV 차량이 달립니다.");
+	}
+}
+
+class Santafe extends Suv {
+	
+	int speed = 120;
+	
+	@Override //오버라이딩 -> 메소드 재정의 
+	public void run() {
+		System.out.println("싼타페 차량이 달립니다.");
+	}
+	
+	public void disp() {
+		// 부모필드명랑 자식필드명이 같은 경우 
+		System.out.println("SUV 속도: " + super.speed); // 부모필드는 super. 를 사용
+		System.out.println("싼타페 속도: " + this.speed); // 자식필드는 this. 를 사용
+	}
+	
+}
+
+public class Ex04 {
+	public static void main(String[] args) {
+		// 오버라이딩
+		Santafe santafe = new Santafe();
+		
+		santafe.run();
+		santafe.disp();
+
+	}
+
+}
+*******************************************************************************
+package clazz;
+
+// 다형성 : 부모클래스 타입으로 자식객체를 얻는것.
+// 1. 부모 클래스가 가지고 있는 모든 멤버들에 접근 할 수 있다.
+// 단, 자식 클래스에서 부모클래스의 메서드를 오버라이딩을 했다면
+// 오버라이딩이 된 자식 메소드가 호출된다.
+
+// 2. 자식 클래스에만 있는 멤버는 오버라이딩이 된
+// 자식 클래스의 메서드에 의해서만 접근 할 수 있다.
+
+class Run {
+	
+	int speed = 100;
+	
+	public void run() {
+		System.out.println(speed + "의 속도로 달립니다.");
+	}
+	
+}
+
+class HyundaiCar extends Run {
+	String model = "소나타";
+	
+	public void parking() {
+		System.out.println(model + "가 주차를 합니다.");
+	}
+	
+	@Override
+	public void run() {
+		System.out.println(model + "가 " + speed + "의 속도로 달립니다.");
+		parking(); 
+	}
+	
+}
+
+class KiaCar extends Run {
+	String model = "k5";
+	
+	public void parking() {
+		System.out.println(model + "가 주차를 합니다.");
+	}
+	
+	@Override
+	public void run() {
+		System.out.println(model + "가 " + speed + "의 속도로 달립니다.");
+		parking(); 
+	}
+}
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		// 다형성 -> 같은 객체지만 다양한 실행결과를 주는것이 다형성
+		Run run = new HyundaiCar(); // 자동 타입변환 업캐스팅(Up-casting)
+		// 부모 위주이다.
+
+//		System.out.println(run.model); // HyundaiCar 접근할수가 없다.
+//		run.parking(); // HyundaiCar 접근할수가 없다.
+		
+		run.run();
+		
+		System.out.println();
+		
+		run = new KiaCar();
+		
+		run.run();
+	}
+
+}
+*******************************************************************************
+package interface1;
+
+interface Animal {
+//	public static final int MAX_AGE = 500; // public static final 생략 가능(상수는 static final 써여됨..)
+	int MAX_AGE = 500;
+	
+//	public abstract void sound(); // public abstract 생략 가능( 추상메서드는 abstract 써야됨..) 
+	
+	void sound();
+	
+	public default void defaulMethod() { // 인터페이스에서 예외적..
+		System.out.println("default 메소드");
+	}
+	
+	public static void staticMethod() { // 인터페이스에서 예외적..
+		System.out.println("static 메소드");
+	}
+}
+
+class Dog implements Animal {
+	
+	// 추상메서드는 무조건 오버라이딩해서 재정의 해야됨!!(강제 기능)
+	@Override
+	public void sound() {
+		
+	}
+	
+}
+
+class Cat implements Animal {
+	
+	// 추상메서드는 무조건 오버라이딩해서 재정의 해야됨!! (강제 기능)
+	@Override
+	public void sound() {
+		
+	}
+	
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		//인터페이스 -> 상수랑, 추상메소드만 사용할수도 있다(예외도 있긴함.)
+		
+//		Animal animal = new Animal();
+		//인터페이스는 객체 생성 할수 없다.
+		
+		Dog dog = new Dog();
+		Cat cat = new Cat();
+		
+		dog.sound();
+		cat.sound();
+		
+		System.out.println();
+		
+		Animal[] myAnimals = new Animal[2];
+		
+		myAnimals[0] = new Dog();
+		myAnimals[1] = new Cat();
+		
+		myAnimals[0].sound();
+		myAnimals[1].sound();
+	
+	}
+}
+*******************************************************************************
+package interface1;
+
+// 필드의 다형성
+
+class Car {
+	Tire tire = new HankookTire();
+	
+	public void run() {
+		System.out.println("자동차가 달립니다.");
+		tire.roll();
+	}
+}
+
+interface Tire {
+	public void roll();
+}
+
+class HankookTire implements Tire {
+	@Override
+	public void roll() {
+		System.out.println("한국타이어가 굴러갑니다.");
+	}
+}
+
+class KumhoTire implements Tire {
+	@Override
+	public void roll() {
+		System.out.println("금호타이어가 굴러갑니다.");
+	}
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		Car myCar = new Car();
+
+		myCar.run();
+		myCar.tire = new KumhoTire(); // 필드의 다형성
+
+		System.out.println();
+		
+		myCar.run();
+	}
+
+}
+
+*******************************************************************************
+package interface1;
+
+// 매개변수의 다형성
+
+interface Vehicle {
+	
+	public void run();
+}
+
+class Bus implements Vehicle {
+	
+	@Override
+	public void run() {
+		System.out.println("버스가 달립니다.");
+	}
+	
+	public void checkFare() {
+		System.out.println("승차요금을 체크합니다.");
+	}
+}
+
+class Taxi implements Vehicle {
+	
+	@Override
+	public void run() {
+		System.out.println("택시가 달립니다.");
+	}
+
+}
+
+class Driver {
+	
+	public void drive(Vehicle vehicle) {
+		
+		// instanceof :  객체타입 확인 연산자 (객체 instanceof 타입)
+		if(vehicle instanceof Bus) {
+			Bus bus = (Bus)vehicle; //강제 타입변환(다운 캐스팅)
+			bus.checkFare();
+		}
+		
+		System.out.println("드라이브를 시작합니다.");
+		vehicle.run();
+	}
+}
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Driver driver = new Driver();
+		Bus bus = new Bus();
+		Taxi taxi = new Taxi();
+		
+		driver.drive(taxi); // 매개변수의 다형성
+		
+		System.out.println();
+		
+		driver.drive(bus);
+	
+	}
+}
+*******************************************************************************
+new java project 생성 ( package Explorer -> 바탕 마우스 오른쪽클릭 ->  new -> java project
+
+프로젝트명 Java_API
+
+*******************************************************************************
+package wrapper;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// 매개변수로 객체가 요구되는 경우
+		// 기본형이 아닌 객체로 저장해야 하는 경우
+		// 문자열을 기본값으로 변환해야 하는 경우
+		// 객체간의 비교가 필요한 경우 등에 wrapper 클래스가 쓰인다.
+		// 자바 Collection 인터페이스는 객체만 취급하기 때문에
+		// 기본타입을 객체로 사용해야 하는 경우가 있다.
+		
+		Integer obj = new Integer(100);
+		// 기본타입의 값을 내부에 갖고있는 객체를 생성(박싱)
+		
+		int value = obj.intValue();
+		// 포장객체에서 기본타입의 값을 얻는다.(언박싱) 
+		
+		System.out.println(value);
+		
+		Integer obj2 = 100; // 자동 박싱
+		
+		int value2 = obj2 + 100; // 자동 언박싱
+		
+		System.out.println(value2);
+
+	}
+
+}
+
+*******************************************************************************
+package wrapper;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Integer obj1 = new Integer(100);
+		Integer obj2 = new Integer(100);
+		
+		System.out.println(obj1 == obj2);
+		System.out.println(obj1.equals(obj2));
+		// .equals: 원본객체와 매개값으로 주어진 객체의
+		// 데이터를 비교 후 데이터가 갖다면 true
+		// 데이터가 다르면 false 반환
+	}
+
+}
+*******************************************************************************
+package wrapper;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		// 문자열을 기본타입으로 값 변경
+		String strNum = "100";
+		
+		// 문자열을 기본타입으로 값을 변경하고 반환
+		int num = Integer.parseInt(strNum);
+		
+		System.out.println(num);
+
+		// 실수인 문자열을 기본타입으로 값 변경
+		strNum = "3.14";
+		
+		// 실수인 문자열을 기본타입으로 값을 변경하고 반환
+		double num2 = Double.parseDouble(strNum);
+		
+		System.out.println(num2);
+	}
+
+}
+
+-------------------------------------------------------------------------
+20240711(목) 4일차
+
+*******************************************************************************
+package string;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// String 클래스이다.
+		// 문자열은 프로그램에서 굉장히 많이 사용되기 때문에
+		// 자바에서는 String 을 기본형과 같은 형식으로 사용할 수 있도록 해두었다.
+		
+		// 문자열이 객체로 생성되고 str1에는 주소값이 저장(이것을 자동박싱이라고함) 
+		// str1, str2은 같은 객체 참조한것
+		String str1 = "Hello";
+		String str2 = "Hello";
+		String str3 = "Hi";
+		
+		System.out.println(str1 == str2); // true(주소값이 같음)
+		System.out.println(str1 == str3); // false(주소값이 다름)
+		System.out.println();
+		
+		String str4 = new String("World");
+		String str5 = new String("World");
+		
+		System.out.println(str4 == str5); // str4, str5은 객체가 각각 따로따로 생성이 되기때문에 주소값이 다름
+		System.out.println(str4.equals(str5));
+		// equals : 원본객체와 매개값으로 주어진 객체의 문자열을 비교 후
+		// 			문자열이 같으면 true, 문자열이 다르면 false
+	}
+
+}
+*******************************************************************************
+package string;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		String strAge = "20";
+		
+		String strHeight = "176.4";
+		
+		System.out.println("홍길동 나이: " + strAge);
+		System.out.println("홍길동 키: " + strHeight);
+		
+		System.out.println();
+		
+		// 홍길동의 나이가 1살이 더 올라갔고
+		// 키가 2.3cm 더 커졌습니다.
+		// 새로운 나이와 키를 계산하여 출력하기
+		int age = Integer.parseInt(strAge);
+		double height = Double.parseDouble(strHeight);
+		
+		age = age + 1;
+		height = height + 2.3;
+		
+		System.out.println("새로운 나이: " + age );
+	
+		//printf?? 공부하기
+		System.out.printf("새로운 키: %.2f", height );	
+	}
+
+}
+*******************************************************************************
+package string;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		// 배열 전체를 String 객체로 생성하기
+		byte[] bytes = {72, 101, 108, 108, 111, 32, 74, 97, 118, 97};
+		
+		String str = new String(bytes);
+		// 객체를 생성하고 매개값에 배열을 넣어주면 됨
+		
+		System.out.println(str);
+		// 결과 Hello Java 라는 문자열이 출력
+		
+		// 배열의 인덱스 위치부터 길이 만큼 String 객체로 생성
+		String str2 = new String(bytes, 6, 4); // new String(배열명, 시작위치, 길이)
+		System.out.println(str2);
+		
+		// 문자열을 byte 배열로 반환(문자열을 기본타입으로)
+		String str3 = "Hello Java";
+		byte[] byteArray = str3.getBytes();
+		
+		for(byte b : byteArray) { // 향상된 for 문
+			System.out.print(b + " ");
+		}
+		
+	}
+
+}
+*******************************************************************************
+package string;
+
+// API는 다른사람이 만든 라이브러리이기때문에 우리는 사용방법을 배우는거다.
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		// String 메소드
+		
+		String str = "Hello World";
+		
+		// charAt:  해당 위치의 문자 하나를 char 타입으로 반환
+		char ch = str.charAt(6);
+		System.out.println(ch);
+		
+		// isEmpty: 해당 문자열이 비어있는지 확인 후 true / false 반환 (비어있으면 true, 안비어있으면 false)
+		boolean bool = str.isEmpty();
+		System.out.println(bool);
+		
+		// length: 문자열의 길이를 정수로 반환
+		int length = str.length();
+		System.out.println(length);
+		
+		// toCharArray:  문자열을 한글자씩 char 배열로 반환
+		char[] charArray = str.toCharArray();
+		for(char c : charArray) {
+			System.out.print(c + " ");
+		}
+		System.out.println();
+		
+		// replace: 문자열을 교체해준다.
+		// 현재 str 문자열은 Hello World 인데 Hi World로 교체방법
+		String newStr = str.replace("Hello", "Hi"); // replace(현재 문자열, 교체할 문자열)
+		System.out.println(newStr);
+	}
+
+}
+*******************************************************************************
+package string;
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		String str = "Hello World";
+		
+		// indexOf: 문자열에 지정한 문자가 처음 몇번째에 있는지를 정수로 반환
+		System.out.println(str.indexOf("l"));
+		
+		// lastIndexOf: 문자열에 지정한 문자가 마지막 몇번째 있는지를 정수로 반환
+		System.out.println(str.lastIndexOf("l"));
+		
+		System.out.println();
+		
+		String str2 = "A:B:C:D:abcd";
+		// split: 지정한 구분자로 문자열을 나눌 수 있다.(배열로 반환)
+		String[] strArray = str2.split(":");
+		for(String s : strArray) {
+			System.out.println(s);
+		}
+		
+		System.out.println();
+		
+		String str3 = "ABCDEFG";
+		// substring: 문자열에서 지정한 범위에 속하는 문자열을 반환
+		String str4 = str3.substring(2);
+		System.out.println(str4);
+		String str4_1 = str3.substring(2,5); // 시작 범위에 값은 포함하고, 끝나는 범위에 값은 포함하지 않는다.
+		System.out.println(str4_1);
+		
+	}
+
+}
+*******************************************************************************
+package string;
+
+public class Ex06 {
+
+	public static void main(String[] args) {
+		
+		String str = "abcDEF";
+		// toLowerCase: 문자열에 대문자를 소문자로 변환
+		System.out.println(str.toLowerCase());
+
+		// toUpperCase: 문자열에 소문자를 대문자로 변환
+		System.out.println(str.toUpperCase());
+		
+		// toString: 문자열을 그대로 반환
+		System.out.println(str.toString());
+		
+		System.out.println();
+		
+		String str2 = "    java Hollo World     ";
+		// trim: 문자열의 앞 뒤 공백만 없애준다.
+		System.out.println(str2);
+		System.out.println(str2.trim());
+		
+	}
+
+}
+*******************************************************************************
+package string;
+
+import java.util.Scanner;
+
+public class Ex07 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("영문자를 입력해주세요~");
+		System.out.print("입력: ");
+		String str = scan.next();
+		
+		// 입력밥은 문자열: AABBBCCCC
+		// 출력: A2B3C4
+		
+		int count = 1; // 숫자를 붙일 변수
+		
+		String answer = ""; // 출력할 변수
+		
+		String temp = str + " "; // 임시변수
+		// temp -> AABBBCCCC
+		
+		for(int i = 0; i < str.length(); i++) {
+			if(temp.charAt(i) == temp.charAt(i+1)) {
+				count++;
+			} else {
+				answer += temp.charAt(i);
+				answer += count;
+				count = 1;	
+			}
+		}
+		
+		System.out.println(answer);
+		
+		scan.close();
+	}
+}
+*******************************************************************************
+
+* string 클래스(생성자)
+new String(배열, 시작위치, 길이)
+
+-------------------------------------------------------------------------
+20240715(월) 5일차
+
+*******************************************************************************
+package api;
+
+import java.util.Objects;
+
+//Java 의 모든 클래스는 Object 의 자식클래스나, 자손 클래스이다
+
+class Person extends Object {
+	
+	private String name;
+	private int age;
+	private final String SSN;
+	
+	// 초기화 생성자 빠르게 만들어 주는법
+	// 마우스 우클릭 -> source -> generate Constructor using Fields 클릭!
+	public Person(String name, int age, String ssn) {
+		this.name = name;
+		this.age = age;
+		this.SSN = ssn;
+	}
+
+	// 다른객체지만 정보가 같으면 같은 객체로 만들어주는 방법( 메소드 재정의 ) 
+	// 마우스 우클릭 -> source -> generate hashCode() and equals() 클릭!
+	
+	// 객체가 데이터가 같을 때에는 같은 hashCode 값을 
+	// 얻을 수 있도록 재정의
+	@Override
+	public int hashCode() {
+		return Objects.hash(SSN, age, name);
+	}
+	
+	// 매개값으로 주어진 객체와 현재 객체의 데이터가 같을때에는
+	// true 를 반환하도록 재정의
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(SSN, other.SSN) && age == other.age && Objects.equals(name, other.name);
+	}
+
+	// toString 재정의!
+	// 마우스 우클릭 -> source -> generate toString() 클릭!
+	// 가치있는 정보를 얻을 수 있도록 재정의
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", age=" + age + ", SSN=" + SSN + "]";
+	}
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		Person person1 = new Person("홍길동", 20 ,"123456-1234567");
+		Person person2 = new Person("홍길동", 20 ,"123456-1234567");
+		
+		// hashCode는 객체가 가지고있는 고유한 정수값(객체마다 다른 정수값)
+		System.out.println(person1.hashCode()); 
+		System.out.println(person2.hashCode());
+		
+		// equals 는 object equals 이기 때문에 객체가 같은지 다른지 비교하는것( == 이거와 동일)
+		// person1, person2는 다른 객체이므로 false
+		System.out.println(person1.equals(person2));
+		
+		// Object 메소드 toString(객체 정보 반환)
+		System.out.println(person1.toString());
+		
+	}
+
+}
+*******************************************************************************
+package api;
+
+import java.util.Objects;
+
+// ** 연습 **
+
+// Member 클래스를 만든다.
+// 필드는 private String name; private int age; private final String SSN;
+// 생성자의 매개변수로 매개값을 받아 필드 초기화
+// equals, hashCode, toString 메소드를 오버라이딩 하여 재정의(이클립스 기능)
+
+class Member {
+	private String name;
+	private int age;
+	private final String SSN;
+	
+	// 생성자 초기화
+	public Member(String name, int age, String sSN) {
+		super();
+		this.name = name;
+		this.age = age;
+		SSN = sSN;
+	}
+
+	// hashCode 재정의(오버라이딩) -> 데이터 같을때 코드값 같게 만듬
+	@Override
+	public int hashCode() {
+		return Objects.hash(SSN, age, name);
+	}
+
+	// equals 재정의(오버라이딩) -> 데이터 같을때는 true 반환
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		return Objects.equals(SSN, other.SSN) && age == other.age && Objects.equals(name, other.name);
+	}
+
+	// toString 재정의(오버라이딩)
+	@Override
+	public String toString() {
+		return "Member [name=" + name + ", age=" + age + ", SSN=" + SSN + "]";
+	}
+	
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		Member member1 = new Member("홍길동", 20, "123456-1234567");
+		Member member2 = new Member("홍길동", 20, "123456-1234567");
+		Member member3 = new Member("성춘향", 22, "123456-2234567");
+
+		System.out.println(member1.hashCode());
+		System.out.println(member2.hashCode());
+		System.out.println(member3.hashCode());
+		
+		System.out.println(member1.equals(member2));
+		System.out.println(member1.equals(member3));
+		System.out.println();
+		
+		System.out.println(member1.toString());
+		System.out.println(member3.toString());
+	}
+
+}
+*******************************************************************************
+package api;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		long time1 = System.currentTimeMillis();
+		// 현재 시간을 읽어서 밀리센컨드값을 long 으로 반환
+
+		System.out.println(time1);
+		
+		long time2 = System.nanoTime();
+		// 현재시간을 읽어서 나노세컨드값을 long 으로 반환
+		
+		System.out.println(time2);
+		
+		long start = System.nanoTime();
+		
+		for(int i = 0; i < 1000000; i++) {}
+		
+		long end = System.nanoTime();
+		
+		System.out.println("for문 걸린시간: " + (end - start) + "ns");
+	}
+
+}
+*******************************************************************************
+package api;
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		// Math: 여러가지 수학적인 기능들이 필요할때 사용하는 클래스
+		// 모든 메소드는 정적으로 구성되어 클래스로 편하게 접근이 가능하다.
+		
+		// abs -> 매개값으로 주어진 데이터의 절대값을 반환
+		int a = Math.abs(-10);
+		System.out.println(a); // 결과 -> -10 의 절대값은 10 출력
+		
+		// max -> 전달된 두 데이터 중 더 큰수를 반환
+		int b = Math.max(1, 9);
+		System.out.println(b); // 결과 -> 1과 9중에 9가 더크기때문에 9 출력
+		
+		// min -> 전달된 두 데이터 중 더 작은수를 반환
+		int c = Math.min(1, 9);
+		System.out.println(c); // 결과 -> 1과 9중에 1이 더 작기때문에 1 출력
+		
+		// random -> 0.0 이상 1.0미만 사이에 속하는 double 타입의 난수를 반환
+		double d = Math.random();
+		System.out.println(d); // 결과 -> 0.0이상 1.0미만의 수중 랜덤으로 난수 반환
+		
+		// ceil -> 전달된 데이터를 올림하여 반환
+		double e = Math.ceil(1.1);
+		System.out.println(e); // 결과 -> 1.1 올림값이기 때문에 2.0 반환
+		
+		// floor -> 전달된 데이터를 버림하여 반환
+		double f = Math.floor(9.9);
+		System.out.println(f); // 결과-> 9.9 버림하여 9.0 반환
+		
+		// round -> 전달된 데이터를 반올림하여 반환(long 타입으로 반환)
+		long g = Math.round(5.3);
+		long h = Math.round(5.7);
+		
+		System.out.println(g); // 결과 -> 5.3의 반올림은 5
+		System.out.println(h); // 결과 -> 5.7의 반올림은 6
+
+	}
+
+}
+*******************************************************************************
+package api;
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		double a = Math.random();
+
+		System.out.println(a);
+		
+		int b = (int)(Math.random() * 10);
+		// 0.0 ~ 9.99999 int로 cathing 해주면 소수점이 버려짐 -> 0 ~ 9
+		System.out.println(b);
+		
+		System.out.println();
+		
+		int[] lotto = new int[6];
+		
+		// 1 ~ 45 까지 수 중에 6개의 뽑아
+		// lotto 배열의 각 요소에 저장
+		//중복된 수 제거
+		
+		for (int i = 0; i < 6; i++) {
+			lotto[i] = (int)(Math.random() * 45) + 1;
+			// 0 ~ 44 -> 1 ~ 45 가됨 
+			
+			for(int j = 0; j < i; j++) { // j는 i의 아랫수까지만 반복
+				if (lotto[i] == lotto[j]) {
+					i--;
+					break;
+				}
+			}
+		}
+		
+		System.out.print("로또번호: ");
+		
+		for(int i : lotto) {
+			System.out.print(i + " ");
+		}
+	}
+
+}
+-------------------------------------------------------------------------
+20240716(화) 6일차
+
+package api;
+
+import java.util.*;
+// * 은 모든것을 뜻함 -> java.util 안에있는 모든것을 불러옴
+
+public class Ex06 {
+
+	public static void main(String[] args) {
+		
+		int[] array = {1, 2, 3, 4, 5};
+		// Arrays 클래스 : 배열을 사용함에 있어 편리한 기능을 제공해주는 클래스
+		// 모든 메소드는 정적으로 구성되어 있어 클래스로 편하게 접근 가능
+		// 위치는 java.util 패키지 안에 있다.
+		
+		// 전달받은 배열의 요소들을 문자열로 반환
+		String str = Arrays.toString(array);
+		System.out.println(str);
+	
+		// copyOf(복사할 배열, 길이)
+		// 길이만큼 새로운 배열이 만들어지고
+		// 복사할 배열의 index 0부터 복사가 된다.
+		int[] array2 = Arrays.copyOf(array, array.length);
+		System.out.println(Arrays.toString(array2)); // 출력
+		
+		int[] array2_1 = Arrays.copyOf(array, 3);
+		System.out.println(Arrays.toString(array2_1)); // 출력
+		
+		int[] array2_2 = Arrays.copyOf(array, 7);
+		System.out.println(Arrays.toString(array2_2)); // 출력
+		
+		// copyOfRange(복사할 배열, 시작위치, 끝위치) -> 끝위치는 포함안되고 그전 위치까지(ex) 4이면 3까지
+		// 배열의 요소가 복사가 된다.
+		int[] array3 = Arrays.copyOfRange(array, 2, 4);
+		// -> 복사할 배열의 index 2부터 3까지(4는 불포함)
+		System.out.println(Arrays.toString(array3));
+		
+		System.out.println();
+		
+		int[] intArray = {3, 5, 1, 6, 2, 7, 4};
+		System.out.println("원본: " + Arrays.toString(intArray));
+		
+		// sort 메소드: 전달받은 배열의 모든 요소를 오름차순으로 정렬한다.
+		Arrays.sort(intArray);
+		
+		System.out.println("정렬: " + Arrays.toString(intArray));
+	}
+
+}
+*******************************************************************************
+package api;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Ex07 {
+
+	public static void main(String[] args) {
+		
+		// 현재 시스템의 시간으로 객체를 생성
+		// 그 외는 잘 사용하지 않는다. ( 윤년떄문에 오차가 있음..)
+		Date now = new Date();
+		
+		System.out.println(now);
+		// 출력 예 -> Tue Jul 16 12:56:07 KST 2024
+		//		  화요일, 7월, 16일, 시:분:초, 한국시간, 년도
+		
+		// 위는 가독성이 안좋으니깐 포맷하는 방법
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy년 MM월 dd일");
+		SimpleDateFormat format2 = new SimpleDateFormat("a hh시 mm분 ss초");
+		
+		String date = format1.format(now);
+		String time = format2.format(now);
+		
+		System.out.println("Date: " + date);
+		System.out.println("Time: " +time);
+		
+		System.out.println();
+		
+		// Calendar 더 많이 사용됨.
+		// Calendar: 추상 클래스로 객체를 직접 생성할 수 없다.
+		// getInstance(); 을 사용하여 정적메소드로 객체를 얻어와야 한다.
+		Calendar cal = Calendar.getInstance();
+		
+		// 사용방법
+		// get 메소드로 calendar 필드를 넣어준다. get 메소드는 정수로 반환함.
+		int year = cal.get(Calendar.YEAR); 
+		int month = cal.get(Calendar.MONTH + 1);
+		// 주의 사항! 컴퓨터의 월은 0부터 시작하기때문에 +1을 해주어야 한다.
+		
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		System.out.printf("오늘의 날짜: %d년 %d월 %d일\n", year, month, day );
+		
+		int hour = cal.get(Calendar.HOUR); // 12시간제
+		int hour2 = cal.get(Calendar.HOUR_OF_DAY); // 24시간제
+		
+		int minute = cal.get(Calendar.MINUTE);
+		int second = cal.get(Calendar.SECOND);
+		
+		System.out.printf("현재 시간: %d시 %d분 %d초 \n", hour, minute, second);
+		System.out.printf("현재 시간: %d시 %d분 %d초 \n", hour2, minute, second);
+		
+	}
+
+}
+*******************************************************************************
+package api;
+
+import java.util.Calendar;
+import java.util.Scanner;
+
+public class Ex08 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("조회할 년도를 입력: ");
+		int year = scan.nextInt();
+		
+		System.out.print("조회할 월을 입력: ");
+		int month = scan.nextInt();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.set(year, month -1, 1);
+		// 선택한 년도와 월 그리고 해당월의 1일로 초기화
+		
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		// 1 ~ 7까지 중 하나를 얻는다.(일 ~ 토)요일을 의미
+		// 월의 시작을 의미
+		// 1	2	3	4	5	6	7
+		// 일	월	화	수	목	금	토
+		
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		// 해당월의 최대 날짜값을 얻는다.
+		
+		System.out.println("week: " + week + ", lastDay: " + lastDay);
+		
+		System.out.println("\t\t " + year + "년" + month + "월");
+		System.out.println("일\t월\t화\t수\t목\t금\t토");
+		
+		for(int i = 1; i < week; i++) {
+			System.out.print("\t");
+		}
+		
+		for(int i = 1; i <= lastDay; i++) {
+			System.out.print(i + "\t");
+			
+			week++;
+			
+			if(week > 7) {
+				week = 1;
+				System.out.println();
+			}
+		}
+		
+		scan.close();
+	}
+
+}
+*******************************************************************************
+** 여기는 다시 string 패키지로 가서 Ex08
+*******************************************************************************
+package string;
+
+public class Ex08 {
+
+	public static void main(String[] args) {
+		
+		// StringBuffer 클래스는
+		// 가변 문자열을 처리하기 위한 클래스이다.
+		
+		StringBuffer sb = new StringBuffer();
+		
+		// append -> 문자열을 뒤에 추가
+		sb.append("Hello"); 
+		sb.append(" ");
+		sb.append("World!");
+		System.out.println(sb.toString());
+		
+		// insert -> 지정한 위치에 문자열 삽입
+		// 첫번째 인자로는 인덱스, 두번째 인자로는 추가할 문자열
+		sb.insert(6, "Java ");
+		System.out.println(sb.toString());
+		
+		// delete -> 지정할 위치의 문자열을 삭제(특정 범위의 문자열 삭제)
+		// 첫번째 인자로는 시작할 인덱스 , 두번째 인자로는 마지막 인덱스(마지막 인덱스는 포함안하고 그전 까지)
+		sb.delete(6, 10); // 예) 인덱스 6부터 9까지(10은 미포함) 문자열 삭제
+		System.out.println(sb.toString());
+		
+	}
+
+}
+*******************************************************************************
+package string;
+
+import java.util.*;
+
+public class Ex09 {
+
+	public static void main(String[] args) {
+		
+		// StringTokenizer 클래스는 문자열을 토큰으로 분리하는데 사용하는 클래스
+		// 지정된 구분자를 기준으로 문자열을 여러개의 토큰으로 나누는 기능 제공
+		// 각 토큰은 문자열에서 분리된 부분 문자열을 나타낸다.
+		
+		String str = "Hello:JAVA:World";
+		// 토큰은 부분문자열임( Hello, JAVA, World)
+		
+		StringTokenizer tokenizer = new StringTokenizer(str, ":");
+		// 첫번째 인자로는 분리할 문자열, 두번째 인자는 구분자
+		
+		// hasMoreTokens: 아직 처리하지 않은 토큰이 남아있는지
+		//				  확인 후 true/false 반환
+		// nextToken: 다음 토큰을 반환
+		
+		while(tokenizer.hasMoreTokens()) {
+			
+			String token = tokenizer.nextToken();
+			System.out.println(token);
+			
+		}
+
+	}
+
+}
+*******************************************************************************
+**  새로운 자바 프로젝트 만듬 -> 이름은 Java_Collection
+-> src -> generic 패키지 생성
+*******************************************************************************
+package generic;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		// Object: Object 클래스는 자바의 최상위 클래스
+		// Object 타입의 변수는 모든 객체를 참조할 수 있다.
+		
+		Object[] obj = new Object[5];
+		
+		obj[0] = new Integer(100);
+		obj[1] = 3.14;
+		obj[2] = new Character('A');
+		obj[3] = "Hello World";
+		obj[4] = true;
+		
+		for(int i = 0; i < obj.length; i++) {
+			System.out.println(obj[i]);
+		}
+
+	}
+}
+*******************************************************************************
+package generic;
+
+class Box<E> {
+	private E obj;
+	
+	// getter, setter 자동완성방법 
+	// -> getObj 입력후 ctrl + 스페이스바 한뒤 엔터
+	// -> setObj 입력후 ctrl + 스페이스바 한뒤 엔터
+	public E getObj() {
+		return obj;
+	}
+	
+	public void setObj(E obj) {
+		this.obj = obj;
+	}
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		//Box box = new Box();
+		
+		//box.setObj("Hello World");
+		
+		// Object 타입이기때문에 (String) 타입으로 casting 해줘야됨. 
+		// 이럴경우 매번 casting을 주면 성능저하가 오므로 제네릭을 사용
+		// String str = (String)box.getObj();
+		// System.out.println(box.getObj());
+		
+		// 위의 주석처리 한부분을 제네릭 하는 방법
+		Box<String> box = new Box<String>();
+		
+		box.setObj("Hello World");
+		
+		String str = box.getObj();
+
+		System.out.println(str);
+	}
+
+}
+-------------------------------------------------------------------------
+20240717(수) 7일차
+
+*******************************************************************************
+package list;
+
+import java.util.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		// 제너릭 뒤에 오는 new ArrayList<>에 생략이 가능하다, 앞부분도 List 만 써줘도 된다.
+		List<String> list = new ArrayList<>();
+		
+		// List: 데이터를 일렬로 늘어놓은 자료구조
+		// 데이터의 중복허용, 순서 중요
+		
+		list.add(new String("홍길동"));
+		list.add("성춘향");
+		list.add("이몽룡");
+		// 홍길동, 성춘향, 이몽룡 순서대로 저장이 된다.
+		
+		// 저장된 전체 객체에 갯수를 알고 싶으면(정수로 반환됨)
+		int size = list.size();
+		System.out.println("총 객체 수: " + size);
+		
+		// 향상된 for 문
+		for(String str : list) {
+			System.out.println(str);
+		}
+		System.out.println();
+		
+		// 객체 중간에 데이터를 넣을려면..
+		list.add(0, "이순신"); // index 0번에 "이순신" 객체를 끼워넣는다.
+		// 결과 -> 이순신 홍길동 성춘향 이몽룡
+		list.add(2, "장보고");
+		// 결과 -> 이순신 홍길동 장보고 성춘향 이몽룡
+		
+		list.set(0, "세종대왕"); // index 0번에 객체를 "세종대왕" 으로 대체한다.
+		// 결과 -> 세종대왕 홍길동 장보고 성춘향 이몽룡
+		
+		String str2 = list.get(2); // index 2번의 객체를 얻는다.
+		System.out.println(str2);
+		System.out.println();
+		
+		// 일반 for 문
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(i + ": " + list.get(i));
+		}
+		System.out.println();
+		
+		list.remove(1); // index 1번의 객체를 삭제
+		// 결과 -> 세종대왕 장보고 성춘향 이몽룡
+		list.remove("장보고"); // "장보고" 객체를 삭제
+		// 결과 -> 세종대왕 성춘향 이몽룡
+		
+		// 일반 for 문
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(i + ": " + list.get(i));
+		}
+		System.out.println();
+		
+		System.out.println(list.contains("홍길동"));
+		System.out.println(list.contains("성춘향"));
+		// contains: List 안에 매개값으로 주어진 객체가 있는지 확인 후
+		//			 객체가 있다면 true 반환, 아니라면 false 반환 
+		
+		list.clear();
+		// List 안에 저장된 모든 객체를 삭제
+		
+		if(list.isEmpty()) {
+			// 리스트 안이 비어있으면 true 반환
+			// 비어있지 않으면 false 반환
+			
+			System.out.println("비어있음");
+		}
+		
+	}
+
+}
+*******************************************************************************
+package list;
+
+import java.util.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// String 타입의 ArrayList를 생성한 후
+		// 연애인 이름 5명을 저장하기
+		// 이름을 향상된 for 문과 일반 for 문으로 출력학
+		
+		List<String> list = new ArrayList<>();
+		
+		list.add("변우석");
+		list.add("김석진");
+		list.add("장원영");
+		list.add("전지현");
+		list.add("안유진");
+		
+		for(String name : list) {
+			System.out.print(name + " ");
+		}
+		
+		System.out.println();
+		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(i + "번: " + list.get(i));
+		}
+	}
+
+}
+*******************************************************************************
+package list;
+
+import java.util.*;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		LinkedList<String> list = new LinkedList<>();
+
+		list.add("사과");
+		list.add("딸기");
+		list.add("포도");
+		list.add("바나나");
+		list.add("수박");
+		
+		// Iterator: 반복자
+		// 컬렉션에 저장된 요소들을 읽어오는 방법을 표준화 한 것
+		
+		Iterator<String> iterator = list.iterator();
+		// Iterator 는 인터페이스여서 new 연산자(생성자)를 생성 못함 
+		// 컬렉션의 iterator 메소드를 호출하여
+		// 객체를 얻어올 수 있다.
+		
+		// hasNext: 컬렉션에서 가져올 객체가 있는지 확인 후 true / false 반환
+		// next: 컬렉션에서 하나의 객체를 가져온다.
+		// remove:  next 메소드로 가져온 요소를 삭제한다.
+		
+		while(iterator.hasNext()) {
+			String fruit = iterator.next();
+			System.out.println(fruit);
+		}
+		System.out.println();
+		
+		iterator = list.iterator();
+		// Iterator 는 1회성이기 때문에
+		// 필요하면 다시 객체를 얻어와야 한다.
+		
+		while(iterator.hasNext()) {
+			String fruit = iterator.next();
+			System.out.println(fruit);
+			iterator.remove();
+		}
+		System.out.println();
+		
+		if(list.isEmpty()) {
+			System.out.println("비어있음");
+		}
+		
+	}
+
+}
+*******************************************************************************
+package list;
+
+import java.util.*;
+
+// Student 클래스를 만든다.
+// 필드 int studentId; String name; String department;
+// 생성자를 통해 매개변수로 매개값을 받아 필드 초기화를 한다.
+// profile 메소드를 만들어서 필드를 출력하기
+
+class Student {
+	int studentId;
+	String name;
+	String department;
+	
+	public Student(int studentId, String name, String department) {
+		this.studentId = studentId;
+		this.name = name;
+		this.department = department;
+	}
+	
+	public void profile() {
+		System.out.println("학번: " + studentId);
+		System.out.println("이름: " + name);
+		System.out.println("학과: " + department);
+	}
+}
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		List<Student> list = new ArrayList<Student>();
+		
+		// 3개의 Student 객체를 생성하여 List 에 저장하기
+		list.add(new Student(202401,"홍길동", "컴퓨터"));
+		list.add(new Student(202402,"성춘향", "음악"));
+		list.add(new Student(202403,"이순신", "경영"));
+		
+		// Iterator 를 사용하여 Student 객체의 profile 메소드 호출하기
+		Iterator<Student> iterator = list.iterator();
+		
+		while(iterator.hasNext()) {
+			Student student = iterator.next();
+			student.profile();
+			System.out.println();
+		}
+
+	}
+
+}
+*******************************************************************************
+20240718(목) 8일차
+
+
+**회원 관리 프로그램**
+Member , MemberService(인터페이스), MemberServiceImpl
+*******************************************************************************
+package member;
+
+import java.util.Objects;
+
+public class Member {
+	
+	private String id;
+	private String pw;
+	private String name;
+	private int age;
+	
+	// 생성자 초기화
+	public Member(String id, String pw, String name, int age) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(age, id, name, pw);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		return age == other.age && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(pw, other.pw);
+	}
+	
+	
+}
+
+*******************************************************************************
+package member;
+
+public interface MemberService {
+	
+	public void memberJoin();
+	
+	public void memberList();
+	
+	public void memberInfo();
+	
+	public void memberEdit();
+	
+	public void memberDelete();
+	
+}
+
+*******************************************************************************
+package member;
+
+import java.util.*;
+
+public class MemberServiceImpl implements MemberService {
+
+	private List<Member> list = new ArrayList<>();
+	
+	private Scanner scan = new Scanner(System.in);
+	
+	@Override
+	public void memberJoin() {
+		// 회원등록: 아이디, 비밀번호, 이름, 나이를 입력받아 회원 등록
+		// 아이디는 중복이 될 경우에 메소드 종료
+		
+		System.out.print("가입할 아이디 입력: ");
+		String id = scan.next();
+		
+		for(Member member : list) {
+			if(member.getId().equals(id)) {
+				System.out.println("같은 아이디가 이미 존재합니다.");
+				return;
+			}
+		}
+		
+		System.out.print("가입할 비밀번호 입력: ");
+		String pw = scan.next();
+		System.out.print("이름 입력: ");
+		String name = scan.next();
+		System.out.print("나이 입력: ");
+		int age = scan.nextInt();
+
+		list.add(new Member(id, pw, name, age));
+		
+		System.out.println("회원 등록이 되었습니다.");
+	}
+	
+	@Override
+	public void memberList() {
+		// 전체 회원의 목록 출력
+		
+		System.out.println("---------------------------------------------------------");
+		
+		for(Member member : list) {
+			String id = member.getId();
+			String pw = member.getPw();
+			String name = member.getName();
+			int age = member.getAge();
+			
+			System.out.println("아이디: " + id + ", 비밀번호: " + pw + ", 이름: " + name + ", 나이: " + age);
+		}
+		
+		System.out.println("---------------------------------------------------------");
+	}
+
+	@Override
+	public void memberInfo() {
+		// 조회할 아이디를 입력받아 해당 회원의
+		// 아이디, 비밀번호, 이름, 나이 출력
+		
+		System.out.print("조회할 회원의 아이디: ");
+		String id = scan.next();
+		
+		for(Member member : list) {
+			if(member.getId().equals(id)) {
+				System.out.println("---------------------------------------------------------");
+				System.out.println("회원 아이디: " + id);
+				System.out.println("회원 비밀번호: " + member.getPw());
+				System.out.println("회원 이름: " + member.getName());
+				System.out.println("회원 나이: " + member.getAge());
+				System.out.println("---------------------------------------------------------");
+				return;
+			}
+		}
+		
+		System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+		
+	}
+
+	@Override
+	public void memberEdit() {
+		// 수정할 회원의 아이디를 입력받아 해당 회원의
+		// (수정할 비밀번호, 나이 입력받아)비밀번호, 나이를 수정하기
+		
+		System.out.print("수정할 회원의 아이디: ");
+		String id = scan.next();
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			Member member = list.get(i);
+			
+			if(member.getId().equals(id)) {
+				System.out.print("수정할 비밀번호 입력: ");
+				String pw = scan.next();
+				System.out.print("수정할 나이 입력: ");
+				int age = scan.nextInt();
+				
+				member.setPw(pw);
+				member.setAge(age);
+				System.out.println(member.getName() + "님의 비밀번호와 나이를 수정했습니다.");
+				
+				return;
+			}
+		}
+		
+		System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+		
+	}
+
+	@Override
+	public void memberDelete() {
+		// 삭제할 회원의 아이디를 입력받아 해당회원 삭제하기
+		
+		System.out.print("삭제할 회원의 아이디: ");
+		String id = scan.next();
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			Member member = list.get(i);
+			
+			if(member.getId().equals(id)) {
+				
+				list.remove(i);
+				System.out.println(member.getName() + "회원을 삭제하였습니다.");
+				
+				return;
+			}
+		}
+		
+		System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+	}
+
+}
+
+*******************************************************************************
+package member;
+
+import java.util.*;
+
+public class MemberMain {
+
+	public static void main(String[] args) {
+		
+		MemberService service = new MemberServiceImpl();
+		
+		Scanner scan = new Scanner(System.in);
+		
+		while(true) {
+			System.out.println();
+			System.out.println();
+			System.out.println("########### 회원 관리 프로그램 ###########");
+			System.out.println("##  1.회원목록   2.회원조회  3.회원 등록  ##");
+			System.out.println("##  4.회원 수정  5.회원삭제  6.종료      ##");
+			System.out.println("######################################");
+			System.out.println();
+			
+			System.out.print("메뉴 입력: ");
+			int choice = scan.nextInt();
+			
+			System.out.println();
+			
+			switch(choice) {
+				case 1 :
+					service.memberList();
+					break;
+				case 2 :
+					service.memberInfo();
+					break;
+				case 3 :
+					service.memberJoin();
+					break;
+				case 4 :
+					service.memberEdit();
+					break;
+				case 5 :
+					service.memberDelete();
+					break;
+				case 6 :
+					System.out.println("회원 프로그램을 종료합니다.");
+					System.exit(0);
+				default:
+					System.out.println("잘못 입력 하였습니다.");
+			}
+		}
+
+	}
+
+}
+
+*******************************************************************************
+set 패키지 추가 Ex01 만들기
+*******************************************************************************
+package set;
+
+import java.util.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		// Set: 데이터의 저장순서를 유지하지 않는다.
+		//      테이터의 중복저장을 허용하지 않는다.
+		
+		Set<String> set = new HashSet<>();
+		
+		set.add(new String("홍길동"));
+		set.add("이순신");
+		set.add("이몽룡");
+		set.add("이몽룡"); // 중복 x
+		
+		System.out.println("총 객체의 수: " + set.size());
+		
+		// set 은 순서대로 저장이 되는게 아니기때문에 인덱스 갯수대로 가져오는 get 메소드가 없다.
+		// 만약 데이터를 가져오고싶으면 iterator 메소드를 사용해서 쓰면된다.
+		
+		Iterator<String> setIter = set.iterator();
+		
+		while(setIter.hasNext()) {
+			
+			String str = setIter.next();
+			System.out.println(str);
+			
+		}
+		System.out.println();
+		
+		boolean bool =set.remove("홍길동"); // .remove 는 논리값으로 저장됨 잘삭제하면 true, 아니면 false
+		
+//		System.out.println(bool);
+		
+		if(bool) {
+			System.out.println("홍길동이 삭제되었습니다.");
+		}
+		
+		System.out.println();
+		
+		setIter = set.iterator();
+		
+		while(setIter.hasNext()) {
+			
+			String str = setIter.next();
+			System.out.println(str);
+			
+		}
+		System.out.println();
+		
+		set.clear(); // 전체 삭제
+		
+		if(set.isEmpty()) {
+			System.out.println("비어있음");
+		}
+		
+	}
+
+}
+*******************************************************************************
+package set;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// String 타입의 HashSet 객체를 생성한 후 
+		// 과일의 이름 5개 저장하기
+		// Iterator 를 사용하여 과일의 이름 출력하기
+		
+		Set<String> set = new HashSet<>();
+		
+		set.add("사과");
+		set.add("포도");
+		set.add("수박");
+		set.add("바나나");
+		set.add("메론");
+		
+		Iterator<String> setIter = set.iterator();
+		
+		while(setIter.hasNext()) {
+			String fruit = setIter.next();
+			System.out.println(fruit);
+		}
+
+	}
+
+}
+*******************************************************************************
+package set;
+
+import java.util.*;
+class Person {
+	
+	private String name;
+	private int age;
+	private final String SSN;
+	
+	public Person(String name, int age, String ssn) {
+		this.name = name;
+		this.age = age;
+		this.SSN = ssn;
+	}
+	
+	public void profile() {
+		System.out.println("이름: " + name);
+		System.out.println("나이: " + age);
+		System.out.println("주민번호: " + SSN);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(SSN, age, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(SSN, other.SSN) && age == other.age && Objects.equals(name, other.name);
+	}
+	
+	
+}
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Set<Person> set = new HashSet<>();
+		
+		set.add(new Person("홍길동", 20, "123456-1234567"));
+		set.add(new Person("성춘향", 22, "123456-2222222"));
+		set.add(new Person("이몽룡", 23, "123456-3333333"));
+		set.add(new Person("홍길동", 20, "123456-1234567"));
+		
+		Iterator<Person> setIter = set.iterator();
+		
+		while(setIter.hasNext()) {
+			Person person = setIter.next();
+			person.profile();
+			System.out.println();
+		}
+
+	}
+
+}
+*******************************************************************************
+20240722(월) 9일차
+
+*******************************************************************************
+package map;
+
+import java.util.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		Map<Integer, String> map = new HashMap<>();
+		
+		map.put(new Integer(1), new String("홍길동"));
+		
+		map.put(2, "성춘향");
+		map.put(3, "이순신");
+		map.put(4, "이몽룡");
+		map.put(1, "장보고");
+		// 동일한 key 로 객체를 저장하면
+		// value 객체가 대체된다.( 홍길동이 장보로 대체가된다.)
+		
+		System.out.println("전체 Entry 수: " + map.size());
+		
+		System.out.println(map); // 전체 출력
+		
+		// get : key 객체로 value 객체를 얻을 수 있다.
+		String str = map.get(1);
+		System.out.println(str);
+		
+		String str2 = map.get(7);
+		// key 객체가 존재하지 않는다면 null 값을 반환
+		System.out.println(str2);
+		System.out.println();
+		
+		// keySet : 전체 key 객체들을 Set 타입으로 반환
+		Set<Integer> keySet = map.keySet();
+		
+		Iterator<Integer> keyIter = keySet.iterator();
+		
+		while(keyIter.hasNext()) {
+			
+			int key = keyIter.next();
+			
+			String value = map.get(key);
+			
+			System.out.println("key: " + key + ", value: " + value);
+		}
+		System.out.println();
+		
+		
+		map.remove(1); // key 객체로 Entry 삭제
+		map.remove(2);
+		
+		System.out.println(map);
+		
+		map.clear(); // 전체 삭제
+		
+		if(map.isEmpty()) {
+			// map 컬렉션이 비어있으면 true
+			// 비어있지 않으면 false 반환
+			System.out.println("비어있음");
+		}
+	}
+}
+*******************************************************************************
+package map;
+
+import java.util.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// <String Integer> 타입의 HashMap 생성 후
+		// 과목과 성적 4개를 저장하기
+		// 국어, 영어, 수학, 자바
+		// key 객체를 사용하여 value 를 얻은 후 성적 출력하기
+		
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("국어", 80);
+		map.put("영어", 85);
+		map.put("수학", 95);
+		map.put("자바", 100);
+		
+		// key 값으로 value 값 가져오기
+		int kor = map.get("국어");
+		int eng = map.get("영어");
+		int math = map.get("수학");
+		int java = map.get("자바");
+		
+		System.out.println("국어 점수: " + kor);
+		System.out.println("영어 점수: " + eng);
+		System.out.println("수학 점수: " + math);
+		System.out.println("자바 점수: " + java);
+		
+		System.out.println();
+		
+		Set<String> keySet = map.keySet();
+		Iterator<String> keyIter = keySet.iterator();
+		
+		while(keyIter.hasNext()) {
+			String key = keyIter.next();
+			int value = map.get(key);
+			
+			System.out.println("과목: " + key + ", 점수: " + value);
+		}
+	}
+}
+*******************************************************************************
+package map;
+
+import java.util.*;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		// <String, String> 타입의 HashMap 객체 생성
+		// 아이디와 비밀번호 4개 저장하기
+		// keySet 메소드로 key 객체를 Set 타입으로 얻은 후
+		// Iterator 를 사용하여 아이디와 비밀번호 출력
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("hong", "1234");
+		map.put("mong", "1111");
+		map.put("sung", "2222");
+		map.put("jang", "3333");
+		
+		Set<String> keySet = map.keySet();
+		Iterator<String> keyIter = keySet.iterator();
+		
+		while(keyIter.hasNext()) {
+			
+			String id = keyIter.next();
+			String pw = map.get(id);
+			
+			System.out.println("아이디: " + id + ", 비밀번호: " + pw);
+			
+		}	
+	}
+}
+
+*******************************************************************************
+new projact -> java_IO 만듬
+*******************************************************************************
+package io;
+
+// 입출력 관련된 패키지들은 아래에 저장
+import java.io.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 데이터들은 2진수로 이루어진 바이트로 전달이 되어진다.
+		// 이러한 입출력을 실행하기 위해 자바에서는 Stream 이 사용된다.
+		
+		// InputStream 은 1byte 단위 처리 스트림이다.
+		// 영문자 - 대소문자, 숫자, 특수문자만 처리할 수 있다.
+		InputStream input = System.in;
+		
+		System.out.print("키 코드 입력하고 엔터: ");
+	
+		int keyCode = input.read();
+		
+		System.out.println(keyCode);
+		System.out.println((char)keyCode);
+		
+		keyCode = input.read(); //엔터값
+		System.out.println(keyCode);
+		
+		keyCode = input.read(); //엔터값
+		System.out.println(keyCode);
+		
+		// 키를 입력하면 buffer 에 임시저장이 되고 read() 를 읽어옴
+		// 읽어낸 데이터를 배열로 저장이 된다. -> 읽어온 데이터는 길이로 반환(정수로 반환)
+		byte[] byteArray = new byte[100];
+		
+		System.out.print("이름 입력: ");
+		int length = input.read(byteArray);
+		
+		// 키코드값으로 출력
+		for(int i = 0; i < length; i++) {
+			System.out.print(byteArray[i]);
+		}
+		
+		System.out.println();
+		
+		// 문자로 출력
+		for(int i = 0; i < length; i++) {
+			System.out.print((char)byteArray[i]);
+		}
+		
+		System.out.println();
+		
+	}
+}
+*******************************************************************************
+package io;
+
+import java.io.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) throws Exception {
+		
+		OutputStream outPut = System.out;
+		
+		outPut.write(65);
+		outPut.write(66);
+		outPut.write(67);
+		
+		// 버퍼에 저장된 값을 방출해준다.
+		outPut.flush();
+		
+		System.out.println();
+		
+		String str = "Hello World";
+		
+		byte[] byteArray = str.getBytes();
+		
+		outPut.write(byteArray); // 전체 출력
+		System.out.println();
+		outPut.write(byteArray, 6, 5); // World 만 출력
+		
+		outPut.flush();
+		
+	}
+}
+*******************************************************************************
+package io;
+
+import java.io.*;
+
+public class Ex03 {
+
+	public static void main(String[] args) throws Exception {
+	 
+		InputStream input = System.in;
+		
+		System.out.print("2부터 9사이의 숫자를 입력: ");
+		int code = input.read();
+		
+		// 숫자 0부터 9까지의 코드값은 순서대로 48부터 57까지이다.
+		
+		System.out.println(code);
+		
+		int dan = code - 48;
+		
+		System.out.println(dan + "단 구구단");
+		// 입력받은 숫자의 구구단을 출력하기
+		for (int i = 1; i <= 9; i++) {
+			System.out.println(dan + " X " + i + " = " +  dan * i);
+		}
+	}
+}
+*******************************************************************************
+20240723(화) 10일차
+*******************************************************************************
+package io;
+
+import java.io.*;
+
+public class Ex04 {
+
+	// 예외처리 throws Exception
+	public static void main(String[] args) throws Exception {
+		
+		InputStreamReader isr = new InputStreamReader(System.in, "UTF-8");
+		
+		// InputStreamReader 는 InputStream 보다 향상된 처리 스트림
+		// 2바이트를 처리할 수 있기 때문에 한글도 처리 가능하다.
+		
+		System.out.print("한글의 문자를 입력: ");
+		int code = isr.read();
+		System.out.println("code: " + code);
+		System.out.println("char: " + (char)code);
+		
+		isr.read(); // 엔터값 처리
+		isr.read();
+
+		System.out.println();
+		
+		char[] charArray = new char[100];
+		
+		System.out.print("한글 이름 입력: ");
+		
+		int length = isr.read(charArray);
+		// 읽어온 데이터는 char 배열로 들어가고
+		// 몇개의 데이터를 읽었는지 정수를 반환
+		
+		for(int i = 0; i < length; i++) {
+			System.out.print(charArray[i]);
+		}	
+	}
+}
+*******************************************************************************
+package io;
+
+import java.io.*;
+
+public class Ex05 {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 인코딩 방식 "UTF-8" 입력
+		OutputStreamWriter osw = new OutputStreamWriter(System.out, "UTF-8");
+		// 2byte 를 처리할 수 있기 때문에 한글도 처리 가능
+		
+		osw.write(44032); // 44032 은 한글 '가' 의 유니코드 값
+		osw.flush();
+		
+		System.out.println();
+		
+		osw.write("안녕하세요~!!"); // 한글로도 입력 가능
+		osw.flush();
+
+	}
+}
+*******************************************************************************
+package io;
+
+import java.io.*;
+
+public class Ex06 {
+	
+	// throws Exception -> 예외처리
+	public static void main(String[] args) throws Exception {
+		
+		// PrintStream 과 PrintWriter 는 출력 스트림 클래스이다.
+		// 이 두 클래스는 각각 바이트 기반, 문자기반 출력 스트림을
+		// 처리하기 위해 사용된다.
+		
+		PrintStream ps = new PrintStream(System.out);
+		
+		// 기본자료형과 문자열 출력
+		
+		ps.print(100);
+		ps.println('A');
+		ps.printf("%d, %f, %c, %s\n", 10, 3.14, 'A', "Hello World");
+		// %d -> 정수, %f -> 실수, %c -> 단일 문자, %s ->문자
+		ps.flush();
+		ps.close();
+		
+	}
+}
+*******************************************************************************
+** io 패키지 마우스 우클릭 -> new -> package -> io.file 만들고 -> Ex01클래스 만들기
+** c드라이브에 aaa 폴더 만들기
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File file1 = new File("C:\\aaa\\aaa.txt"); // c 드라이브에 aaa 파일 만든다.
+		// 파일이 없어도 상관없다.
+		
+		File file2 = new File("C:\\aaa", "aaa.txt");
+		// 파일경로와 파일명으로 객체를 생성할 수 있다.(첫번째는 파일 경로, 두번째는 파일명)
+		
+		File file3 = new File("C:\\aaa");
+		// 파일경로로만 객체를 생성할수 있다.
+		
+		File file4 = new File(file3, "aaa.txt");
+		// 파일경로의 객체와 파일명으로 생성할 수 있다.
+		
+		// 윈도우의 폴더 구별자: \
+		// 리눈스의 폴더 구별자: /
+		
+		// File.separator : 폴더 구별자( 윈도우랑 리눅스는 구별자가 다르기 때문에  File.separator 을 사용하여 구별한다)
+		File dir = new File("C:" + File.separator + "aaa");
+		
+		File file = new File(dir, "aaa.txt");
+
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 윈도우의 폴더 구별자: \
+		// 리눈스의 폴더 구별자: /
+		
+		// File.separator : 폴더 구별자( 윈도우랑 리눅스는 구별자가 다르기 때문에  File.separator 을 사용하여 구별한다)
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt"); // 파일 경로의 객체 , 파일명 
+		
+		if(file.createNewFile()) {
+			// 파일이 없으면 파일을 생성후 true 반환
+			// 파일이 있으면 false 반환
+			System.out.println("aaa.txt 파일을 생성했습니다.");
+		} else {
+			System.out.println("aaa.txt 파일은 이미 존재합니다.");
+		}
+		
+		File imsi = File.createTempFile("java", ".dat", dir);
+		// .createTempFile -> 임시파일 생성 (파일명, 확장자, 경로)
+		// 임시파일은 앞에 이름을 정하고 중간에 임의의 숫자가 들어간다.
+		// 뒤에 이름을 정한다.(확장자)
+		
+		// 임시파일은 잠시 생성하고 프로그램이 끝날때 삭제를 해야된다.
+		imsi.deleteOnExit(); // .deleteOnExit(); -> 프로그램 끝날때 삭제
+		
+		Thread.sleep(5000);
+		// 5초간 프로그램을 잠재운다.
+		
+		file.delete(); // 바로 삭제
+		
+		Thread.sleep(5000);
+		// 5초간 프로그램을 잠재운다.
+			
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex03 {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 윈도우의 폴더 구별자: \
+		// 리눈스의 폴더 구별자: /
+				
+		// File.separator : 폴더 구별자( 윈도우랑 리눅스는 구별자가 다르기 때문에  File.separator 을 사용하여 구별한다)
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt"); // 파일 경로의 객체 , 파일명 
+		
+		FileOutputStream fos = new FileOutputStream(file, true);
+		// 파일이 없으면 파일을 만들어준다.
+		// 객체 생성시 true 이면 파일 자료에 이어쓰기, false 이면 다시쓰기
+		
+		fos.write(65); // 하나의 정수로 입력(아스키 코드값으로 넣어준다.)
+		fos.write('B'); // 하나의 단일 문자로도 넣을수 있다. 
+		
+		
+		// byte 배열로 문자열 넣기
+		String msg = "Hello World";
+		
+		byte[] byteArray = msg.getBytes();
+		
+		fos.write(byteArray);
+		fos.write(byteArray, 6, 5);
+		
+		fos.close(); // 연결된 Stream 을 닫아준다.(안닫아주면 계속 연결되어있어서 연결된 Stream 을 닫아줘야됨)
+		
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex04 {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 윈도우의 폴더 구별자: \
+		// 리눈스의 폴더 구별자: /
+				
+		// File.separator : 폴더 구별자( 윈도우랑 리눅스는 구별자가 다르기 때문에  File.separator 을 사용하여 구별한다)
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt"); // 파일 경로의 객체 , 파일명 
+		
+		FileInputStream fis = new FileInputStream(file);
+		
+//		fis.read();
+		// read 는  1byte 를 읽어온다. 예제로 aaa 파일에 18byte 이기때문에 read 를 18번 써야된다.
+		// 그래서 반복문을 사용하여 반복적으로 읽어올거임.
+		
+		while(true) {
+			int data = fis.read();
+			// 한글자 한글자 아스키코드로 받는다.
+			
+			if(data == -1) { // 바이트 입력에 파일의 끝값은 -1이다.( 데이터가 없을때 -1)
+				break;
+			}
+			
+			System.out.print((char) data);
+		}
+		
+		fis.close();
+		
+	}
+}
+*******************************************************************************
+** aaa폴더에 이미지 파일 넣기(ex Pororo.jpeg)
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex05 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "Pororo.jpeg");
+		
+		// FileInputStream 과 FileOutputStream 클래스를 사용하여
+		// Pororo.jpeg 파일을 복사하기 Copy.jpg
+		
+		FileInputStream fis = new FileInputStream(file);
+		FileOutputStream fos = new FileOutputStream(dir + File.separator + "Copy.jpeg");
+
+		while(true) {
+			int data = fis.read();
+			
+			if(data == -1) {
+				break;
+			}
+			
+			fos.write(data);
+		}
+		
+		fos.close();
+		fis.close();
+	}
+}
+*******************************************************************************
+20240724(수) 11일차
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex06 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileOutputStream fos = new FileOutputStream(file);
+		
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		// 버퍼에 담는다. (성능향상)
+		
+		DataOutputStream dos = new DataOutputStream(bos);
+		// 원하는 데이터 형태로 출력한다. (기능향상)
+		
+		// 서로다 연결해서 추가된 기능을 사용할수 있다.
+		
+		int a = 100; //4바이트
+		double b = 3.14; // 8바이트
+		String c = "Hello World";
+		
+		dos.writeInt(a); // 정수값 출력 
+		dos.writeDouble(b); // 실수값 출력
+		dos.writeUTF(c); // 문자열 출력
+		
+		dos.close();
+	
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex07 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		DataInputStream dis = new DataInputStream(bis);
+		
+		// 데이터를 읽을땐 데이터를 넣은 순서대로 읽어야 한다.
+		int a = dis.readInt(); // Ex06 에서 정수를 넣었기 때문에 readInt(4바이트를 읽어서 정수타입으로 반환)
+		double b = dis.readDouble(); // Ex06 에서 실수를 넣었기 때문에 readDouble(8바이트를 읽어서 실수타입으로 반환)
+		String c = dis.readUTF(); // Ex06 에서 문자열을 넣었기 때문에 readUTF
+		
+		System.out.println("a: " + a);
+		System.out.println("b: " + b);
+		System.out.println("c: " + c);
+		
+		dis.close();
+		
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex08 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileWriter fw = new FileWriter(file);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		
+		// .print -> 기본타입을 매개타입으로 넣을수 있다. (반환은 문자열로 반환됨)
+		pw.print(100); 
+		pw.println('A');
+		pw.println(3.14); 
+		pw.println("Hello World");
+		pw.println("안녕하세요");
+		
+		pw.close();
+		
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex09 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		
+//		br.readLine(); // 이방법은 시간이 너무 많이 듬... 아래의 반복문 사용
+		
+		while(true) {
+			
+			String msg = br.readLine(); // 한줄 읽어오기
+			
+			// 더이상 읽어올 데이터가 없으면 null 을 반환
+			if(msg == null) { // text 에서 파일의 끝은 null 이다.
+				break; // while 문 종료
+			}
+			
+			System.out.println(msg);
+			
+		}
+		
+		br.close();
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex10 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "ox.txt");
+		
+		// ox퀴즈
+		// 1000개의 ox들이 있다.
+		// 0는 1점 x는 점수가 없다!
+		// 만약 연속으로 0가 등장할경우 점수가 2배!
+		
+		// (예시)
+		// ooxxxxoo (1+2+1+2) 6점
+		// ooooxooo (1+2+4+8+1+2+4) 22점
+		// 1000 개의 ox 점수합을 구하세요.
+		
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+
+		int totalScore = 0; // 총 점수의 합을 구한 변수
+		int score = 0; // 한 줄의 점수를 저장할 변수
+		
+		while(true) {
+			
+			String ox = br.readLine(); // 한줄 읽어오기
+		
+			// 더이상 읽어올 데이터가 없으면 null 을 반환
+			if(ox == null) { // text 에서 파일의 끝은 null 이다.
+				break; // while 문 종료
+			}
+			
+			char[] charArray = ox.toCharArray();
+			
+			score = 1; // 점수를 1점으로 최기화
+			
+			for(int i = 0; i < charArray.length; i++) {
+				if(charArray[i] == 'O') {
+					totalScore += score;
+					score *= 2; // 점수를 2배로 설정
+				} else { // 'X' 일때
+					score = 1;
+				}
+			}
+			
+		}
+		
+		System.out.println("O X 의 총 점수의 합: " + totalScore + "점");
+		
+		br.close();
+	
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+// 직열, 역직열은 JVM이 함. 그래서 개발자는 타입을 넣어줘야됨
+// implements Serializable 추가로 타입 정보 넣어줌( 상속받는다)
+class Person implements Serializable {
+	
+	String name = "홍길동";
+	int age = 20;
+
+}
+
+public class Ex11 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileOutputStream fos = new FileOutputStream(file);
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		
+		// 객체 입출력 스트림 사용이유
+		// 복잡한 데이터 구조를 저장할 수 있고 객체를 직렬화하여 상태를 저장하면,
+		// 프로그램이 종료되거나 중단된 상황에서도 이전 상태를 보존할 수 있다.
+		// 또한 직렬화된 객체는 일반 텍스트보다 더욱 어렵게 이해할 수 있으므로,
+		// 데이터 보안 측면에서도 유리하다.
+		
+		Person person = new Person();
+		
+		oos.writeObject(person); // 직렬화 되어서 aaa.txt 출력함( 객체여서 내용이 무슨내용인지 모름)
+		
+		oos.close();
+	
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex12 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		ObjectInputStream ois = new ObjectInputStream(bis);
+		
+		Person person = (Person)ois.readObject(); 
+		// 읽어 올때는 readObject(); 읽어오고 객체로 알아서 저장함 (역직렬화)
+		// 타입은 Object 이기 때문에 (Person) 으로 casting 해줘야됨
+		
+		System.out.println("이름: " + person.name);
+		System.out.println("나이: " + person.age);
+		
+		ois.close();
+
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+class Student implements Serializable {
+	
+	private int studentID;
+	private String name;
+	private int age;
+	
+	// 초기화 생성자
+	public Student(int studentID, String name, int age) {
+		super();
+		this.studentID = studentID;
+		this.name = name;
+		this.age = age;
+	}
+
+	// getter, setter 메소드 생성
+	public int getStudentID() {
+		return studentID;
+	}
+
+	public void setStudentID(int studentID) {
+		this.studentID = studentID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+}
+
+public class Ex13 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileOutputStream fos = new FileOutputStream(file);
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		
+		// Student 객체를 생성후
+		// ObjectOutputStream 의 writeOject 메소드로
+		// 객체를 직렬화하여 aaa.txt 파일에 저장하기
+		
+//		Student student = new Student(1234, "홍길동", 20);
+//		
+//		oos.writeObject(student);
+		
+		oos.writeObject(new Student(1234, "홍길동", 20));
+		
+		oos.close();
+
+	}
+}
+*******************************************************************************
+package io.file;
+
+import java.io.*;
+
+public class Ex14 {
+
+	public static void main(String[] args) throws Exception {
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "aaa.txt");
+		
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		ObjectInputStream ois = new ObjectInputStream(bis);
+		
+		Student student = (Student)ois.readObject();
+		
+		System.out.println("학번: " + student.getStudentID());
+		System.out.println("이름: " + student.getName());
+		System.out.println("나이: " + student.getAge());
+		
+		ois.close();
+		
+	}
+}
+*******************************************************************************
+20240725(목) 12일차
+*******************************************************************************
+package thread;
+
+// 1. Thread 클래스를 상속한 자식클래스로부터 작업스레드 구현
+class MyThread1 extends Thread {
+	
+	// run 메소드를 오버라이딩 하여 작업코드를 작성
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			System.out.println("나의 첫번째 스레드");
+		}
+		
+	}
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		// 작업 스레드 객체 생성
+		MyThread1 myThread = new MyThread1();
+		
+//		myThread.run(); // 마지막에 "main 스레드" 가 온다
+		myThread.start(); // 맨처음에 "main 스레드" 가 온다
+		// run 메소드가 호출되면서 독립적인 호출스택이 생성되고
+		// 스레드가 종료되면 작업에 사용된 호출스택은 소멸된다.
+		
+		System.out.println("main 스레드");
+		
+	}
+}
+*******************************************************************************
+package thread;
+
+// 2. Runnable 인터페이스를 구현한 클래스로부터 작업스레드 구현
+class MyThread2 implements Runnable {
+
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			System.out.println("나의 두번째 스레드");
+		}
+		
+	}
+	
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// Runnable 인터페이스를 상속받은 클래스의 객체를 생성
+		Runnable run = new MyThread2();
+		
+		// Thread 클래스로부터 객체를 생성할때
+		// Runnable 인터페이스를 상속받은 클래스의 객체를
+		// 생성자의 매개값으로 주어 작업스레드 객체를 생성
+		Thread myThread = new Thread(run);
+		
+		myThread.start();
+		
+		System.out.println("main 스레드");
+		
+		// 스레드 방식이 2가지 인데
+		// 간단한 1번째 방식( Thread 상속받아서 )으로 하면되는데
+		// 왜 번거롭게 Runnable 을 방식으로 하는 이유는
+		// 1번은 다중 상속을 받을수 없기 때문에
+		// 2번은 상속받을게 있으면 아래와 같이 인터페이스를 구현하고 상속 받으면 된다.
+		// ex ) class MyThread2 extends A implements Runnable { ... }
+	}
+}
+*******************************************************************************
+package thread;
+
+// 1. Thread 클래스를 상속한 자식클래스로부터 작업스레드 구현
+class MyThread1_1 extends Thread {
+	
+	// run 메소드를 오버라이딩 하여 작업코드를 작성
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			System.out.println("나의 첫번째 스레드");
+		}
+		
+	}
+}
+
+public class Ex01_1 {
+
+	public static void main(String[] args) {
+		
+		// 작업 스레드 객체 생성
+		MyThread1_1 myThread = new MyThread1_1();
+		
+		// 스레드 이름 가져오기
+		String name = myThread.getName();
+		System.out.println(name);
+		
+		// 스레드 이름 변경하기
+		myThread.setName("나의 첫번째 스레드");
+		System.out.println(myThread.getName());
+		
+
+		
+	}
+}
+*******************************************************************************
+package thread;
+
+// 2. Runnable 인터페이스를 구현한 클래스로부터 작업스레드 구현
+class MyThread2_1 implements Runnable {
+
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			
+			System.out.println(Thread.currentThread().getName());
+			// Thread.currentThread(): 현재 실행중인 스레드를 반환한다.
+			
+		}
+		
+	}
+	
+}
+
+public class Ex02_1 {
+
+	public static void main(String[] args) {
+		
+		// Runnable 인터페이스를 상속받은 클래스의 객체를 생성
+		Runnable run = new MyThread2_1();
+		
+		// Thread 클래스로부터 객체를 생성할때
+		// Runnable 인터페이스를 상속받은 클래스의 객체를
+		// 생성자의 매개값으로 주어 작업스레드 객체를 생성
+		Thread myThread = new Thread(run);
+		
+		myThread.start();
+		
+		System.out.println("main 스레드");
+		
+		// 스레드 방식이 2가지 인데
+		// 간단한 1번째 방식( Thread 상속받아서 )으로 하면되는데
+		// 왜 번거롭게 Runnable 을 방식으로 하는 이유는
+		// 1번은 다중 상속을 받을수 없기 때문에
+		// 2번은 상속받을게 있으면 아래와 같이 인터페이스를 구현하고 상속 받으면 된다.
+		// ex ) class MyThread2 extends A implements Runnable { ... }
+	}
+}
+*******************************************************************************
+package thread;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		// Runnable 인터페이스의 익명클래스를 만든다.
+		// run 메소드를 오버라이딩 하여 실행 코드를 작성한다.
+		// "나의 세번째 스레드" 100번 출력
+		
+		// Thread 클래스로부터 객체를 생성할때 
+		// Runnable 인터페이스 타입의 익명객체를 넣어서 생성한다.
+		// start 메소드를 호출하여 독립적인 스레드를 실행시킨다.
+		
+		Runnable run = new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				for(int i = 0; i < 100; i++) {
+					System.out.println("나의 세번째 스레드");
+				}
+				
+			}
+		};
+		
+		Thread myThread = new Thread(run);
+		
+		myThread.start();
+
+	}
+}
+*******************************************************************************
+package thread;
+
+class Food extends Thread {
+	
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			System.out.println("음식을 먹습니다. i: " + i);
+		}
+		
+	}
+}
+
+class Music extends Thread {
+	
+	@Override
+	public void run() {
+		
+		for(int i = 0; i < 100; i++) {
+			System.out.println("음악을 듣습니다. i: " + i);
+		}
+		
+	}
+	
+}
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		System.out.println("!! 메인 시작 !!");
+		
+		Food food = new Food();
+		Music music = new Music();
+		
+		System.out.println(Thread.MAX_PRIORITY);
+		System.out.println(Thread.MIN_PRIORITY);
+		System.out.println(Thread.NORM_PRIORITY);
+		// 스레드에 우선순위를 지정하여 실행제어를 할 수 있다.
+		// 정수로 표현하며 가장 높은 우선순위는 10
+		// 가장 낮은 우선순위는 1, 기본값은 5이다.
+		// 우선순위가 높을수록 더 많은 시간을 확보할 수 있다.
+		
+		// 가장 높은 우선순위로 지정(100% 는 아니고 일단 요청은 한다) 더 많은 시간을 확보해준다 
+		food.setPriority(Thread.MAX_PRIORITY);
+		
+		// 가장 낮은 우선순위로 지정 (100% 는 아니고 일단 요청은 한다)
+		music.setPriority(Thread.MIN_PRIORITY);
+		
+		food.start();
+		music.start();
+		
+		try {
+			
+			food.join(); // main 스레드가 food 의 작업이 끝날때까지 대기
+			music.join(); // main 스레드가 music 의 작업이 끝날때까지 대기
+			
+		} catch(Exception e) {}
+		
+		System.out.println("!! main 끝 !!");
+
+	}
+}
+*******************************************************************************
+package thread;
+
+import java.util.Scanner;
+
+//스레드가 효율적으로 언제 사용되는지..?
+// 굳이 여러개를 만든는 이유가..?
+
+class MyThread3 extends Thread {
+	
+	@Override
+	public void run() {
+		
+		for(int i = 10; i >= 0; i--) {
+			
+			try {
+				
+				Thread.sleep(1000);
+				// sleep 메소드는 지정된 시간동안
+				// 스레드를 일시정지 상태로 만든다.
+				System.out.println(i);
+				
+			} catch(InterruptedException e) {
+				
+			}
+		}
+	}
+	
+}
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		// 스레드를 효율적으로 하는 방법!
+		// 두 스레드가 서로 다른작업을 하는 경우에는 멀티스레드가 효율적이다.
+		// 예) 사용자로부터 입력을 받는 작업을 하는 경우 입력을 기다리는 동안
+		// 다른 스레드에서는 다른 작업을 할 수 있다.
+		
+		MyThread3 myThread = new MyThread3();
+		
+		myThread.start();
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("문자열을 입력해주세요.");
+		
+		String str = scan.next();
+		
+		System.out.println(str);
+
+	}
+}
+*******************************************************************************
+package thread;
+
+class EatThread extends Thread {
+	
+	@Override
+	public void run() {
+		
+		try {
+			while(true) {
+				
+				System.out.println("식사를 하는중..");
+				sleep(1000);
+				// sleep 은 무조건 예외처리를 해줘야됨
+
+			}
+		} catch(InterruptedException e) { // interrupt 을 실행하면 InterruptedException 예외처리가 발생되며 종료
+			
+			System.out.println("식사를 마칩니다.");
+			
+		}
+		
+	}
+	
+}
+
+public class Ex06 {
+
+	public static void main(String[] args) {
+		
+		EatThread eatThread = new EatThread();
+		
+		eatThread.start();
+		
+		try {
+			Thread.sleep(5000);
+			
+		} catch(InterruptedException e) {
+			
+		}
+		
+		eatThread.interrupt();
+		// 스레드가 일시정지 상태에 있을때 이 스레드에 대해서
+		// interrupt 메소드를 호출하면 이 스레드는 실행 대기상태로 바뀐다.
+		// 즉 멈춰있던 스레드를 깨워서 실행가능한 상태로 만드는 것이다.
+		
+	}
+}
+*******************************************************************************
+20240729(월) 13일차
+*******************************************************************************
+package thread;
+
+// 데몬스레드는 일반스레드의 작업을 돕는 보조적인 역할을 하는 스레드이다.
+// 일반스레드가 모두 종료되면 데몬스레드는 강제적으로 자동 종료된다.
+// 데몬스레드는 무한루프와 조건문을 이용해서 대기하고 있다가 특정조건이
+// 만족되면 작업을 수행하고 다시 대기하도록 작성한다.
+
+class MyDaemon extends Thread {
+	
+	public int playTime;
+	
+	@Override
+	public void run() {
+		
+		// 일반 스레드
+		while(true) {
+			
+			try {
+				
+				Thread.sleep(1000);
+				
+			} catch (InterruptedException e) {}
+			
+			if(playTime == 60) {
+				System.out.println("게임을 플레이 한지 1시간이 지났습니다.");
+			}
+			
+			if(playTime == 90) {
+				System.out.println("게임을 플레이한지 1시간 30분이 지났습니다.");
+			}
+		}
+	}
+}
+
+public class Ex07 {
+
+	public static void main(String[] args) throws Exception {
+		
+		MyDaemon daemon = new MyDaemon();
+		
+		daemon.setDaemon(true); // 데몬스레드 지정
+		// 데몬스레드는 스레드를 생성한 다음에 실행하기 전에
+		// setDaemon 메소드를 호출하여 true 로 명시한다.
+		
+		daemon.start();
+		
+		for(int i = 10; i <= 120; i += 10) {
+			
+			Thread.sleep(1000);
+			System.out.println(i + "분 동안 게임을 플레이중...");
+			
+			if(i == 60) {
+				daemon.playTime = 60;
+			}
+			
+			if(i == 90) {
+				daemon.playTime = 90;
+			}
+			
+		}
+
+		System.out.println("게임을 종료합니다.");
+		
+	}
+}
+*******************************************************************************
+package thread;
+
+// 멀티스레드의 경우 여러스레드가 객체를 공유해서 작업을 하면 서로의 작업에 
+// 영향을 주게된다. 이러한 일이 발생하지 않도록 한 스레드가 작업을 마치기 전까지
+// 다른스레드의 방해를 받지 않도록 하는것이 필요하다.
+// 한 스레드가 진행중인 작업을 다른 스레드가 간섭하지 못하게 하는 것을
+// 스레드의 동기화 (synchronization) 라고 한다.
+
+class RentalCar {
+	
+	private String carName;
+	
+	public synchronized void getRentalCar(String carName) {
+		// synchronized 를 붙이면 메소드가 호출된 시점부터 해당 메소드가 포함된
+		// 객체에 락을 얻어 작업을 수행하고 메소드가 종료되면 락을 반환다.
+		
+		System.out.println();
+		System.out.println("렌터카 조회를 시작합니다.");
+		searchTime();
+		this.carName = carName;
+		System.out.println("해당 렌터카가 있습니다.");
+		System.out.println("빌릴차: " + this.carName);
+		
+	}
+
+	private void searchTime() {
+		
+		for(int i = 0; i < 1000000; i++) {
+			
+			if(i == 500000) {
+				System.out.println("조회중 입니다.. 잠시만 기다려주세요~");
+			}
+			
+		}
+		
+	}
+	
+}
+
+// Thread 상속받음
+class Person extends Thread {
+	
+	String carName;
+	RentalCar rentalCar;
+	
+	// 필드 초기화
+	public Person(String carName, RentalCar rentalCar) {
+		this.carName = carName;
+		this.rentalCar = rentalCar;
+	}
+	
+	@Override
+	public void run() {
+		rentalCar.getRentalCar(carName);
+	}
+}
+
+public class Ex08 {
+
+	public static void main(String[] args) throws Exception {
+		
+		RentalCar rentalCar = new RentalCar();
+		
+		Person person1 = new Person("산타페", rentalCar);
+		Person person2 = new Person("소나타", rentalCar);
+		Person person3 = new Person("그랜져", rentalCar);
+		Person person4 = new Person("벤츠 E클래스", rentalCar);
+		
+		person1.start();
+		person2.start();
+		person3.start();
+		person4.start();
+		
+	}
+}
+*******************************************************************************
+package thread;
+
+// BankAccount 클래스를 만든다.
+// 필드는 private int totalMoney; 이다.
+// 생성자에서 매개변수로 필드 초기화를 한다.
+// 정수(입금금액) 하나를 매개변수로 받아
+// totalMoney에 더해주는 deposit 메소드를 만든다.
+// 메소드는 동기화가 될 수 있도록 하고 입금금액과 총 잔액을 출력해준다.
+// 필드값을 얻을 수 있도록 getter 메소드를 만든다.
+
+class BankAccount {
+	private int totalMoney;
+	
+	public BankAccount(int initialMoney) {
+		totalMoney = initialMoney;
+	}
+	
+	public synchronized void deposit(int money) {
+		
+		totalMoney += money;
+		
+		try {
+			
+			Thread.sleep(1000);
+			
+		} catch(Exception e) {}
+		
+		System.out.println("입금금액: " + money + " | 총 잔액: " + totalMoney);
+		
+	}
+	
+	public int getTotalMoney() {
+		return totalMoney;
+	}
+}
+
+public class Ex09 {
+
+	public static void main(String[] args) {
+		
+		// BankAccount 클래스로부터 객체생성하기.
+		// Runnable 의 익명클래스를 만들어서 run 메소드를 오버라이딩 한 후
+		// BankAccount 객체의 deposit 메소드를 호출하도록 한다.
+		// Runnable 익명객체를 생성자의 매개값으로 받는
+		// Thread 객체 2개를 생성 후 start 메소드 호출하기
+		
+		BankAccount bankAccount = new BankAccount(1000);
+		
+		Runnable run = new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				for (int i = 0; i < 5; i++) {
+					bankAccount.deposit(100);
+				}
+				
+			}
+		};
+		
+		Thread thread1 = new Thread(run);
+		Thread thread2 = new Thread(run);
+		
+		thread1.start();
+		thread2.start();
+		
+		try {
+			thread1.join();
+			thread2.join();
+		} catch (Exception e) {}
+		
+		System.out.println("최종잔액: " + bankAccount.getTotalMoney());
+		
+	}
+}
+*******************************************************************************
+** Ineer (내부 클래스) -> java1임
+** 프로젝트는 Java_Basic 프로젝트에 new package 생성 (inner) -> Ex01 클래스 생성
+*******************************************************************************
+package inner;
+
+// Inner 클래스에서 Outer 클래스멤버 접근예제  ( 80~90% 사용)
+
+class Outer1 {
+	private int x = 100;
+	
+	private static int y = 200;
+	
+	public void outerMethod1() {
+		System.out.println("public 바깥클래스 메소드");
+	}
+	
+	public void outerMethod2() {
+		System.out.println("private 바깥클래스 메소드");
+	}
+	
+	// 클래스 안에 선언된 클래스를 내부클래스라고함
+	class Inner1 { // 인스턴스 멤버클래스
+		
+		private int z = 300;
+		
+		//private static int zz = 400;
+		// 인스턴스 멤버클래스에서 정적멤버는 선언할 수 없다.
+		//(정적멤버는 메모리에 먼저 올라가는걸 멤버) 정적 멤버는 static 이다.
+		
+		public void disp() {
+			System.out.println("Outer x: " + x);
+			System.out.println("Outer y: " + y);
+			System.out.println("Inner z: " + z);
+			outerMethod1();
+			outerMethod2();
+			// 안쪽클래스에서 바깥클래스의 멤버는 사용 가능하다.
+			
+		}
+		
+	}
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		Outer1 outer = new Outer1();
+		// 우선 바깥클래스의 객체생성을 해준다.
+		
+		Outer1.Inner1 inner = outer.new Inner1();
+		// 생성된 객체로 안쪽클래스의 객체생성을 해준다.
+		
+		inner.disp();
+
+	}
+}
+*******************************************************************************
+package inner;
+
+// Outer 클래스에서 Inner 클래스 멤버 접근예제  ( 80~90% 사용)
+
+class Outer2 {
+	
+	private int x = 100;
+	
+	public void disp() {
+		
+		System.out.println("Outer x: " + x);
+//		System.out.println("Inner y: " + y);
+		// 위는 에러남. 에러나는 이유는 객체를 생성해서 사용해야된다.
+		
+		Inner2 inner = new Inner2();
+		System.out.println("Inner y: " + inner.y);
+		inner.innerMethod1();
+		inner.innerMethod2();
+	}
+	
+	class Inner2 {
+		
+		private int y = 200;
+		
+		public void innerMethod1() {
+			System.out.println("public 안쪽클래스 메소드");
+		}
+		
+		public void innerMethod2() {
+			System.out.println("private 안쪽클래스 메소드");
+		}
+	}
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		Outer2 outer = new Outer2();
+		
+		outer.disp();
+		
+	}
+}
+*******************************************************************************
+20240730(화) 14일차
+*******************************************************************************
+package inner;
+
+// 정적 멤버 클래스 ( 잘 사용안함)
+class Outer3 {
+	
+	private int x = 100;
+	private static int y = 200;
+	
+	static class Inner3 {   // 정적 멤버클래스 - 모든 종류에 필드와 메소드를 선언할수있다.
+		
+		private int z = 300;
+		private static int zz = 400;
+		
+		public void disp() {
+			
+			// System.out.println("Outer x : " + x);
+			// 정적멤버클래스에서 바깥클래스의 인스턴스 멤버는 사용 x
+			
+			System.out.println("Outer y: " + y);
+			System.out.println("Inner z: " + z);
+			System.out.println("Inner zz: " + zz);
+			
+		}
+	}
+}
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Outer3.Inner3 inner = new Outer3.Inner3();
+		
+		inner.disp();
+		
+	}
+}
+*******************************************************************************
+package inner;
+
+// 로컬 클래스 - 메소드 안에 선언한 클래스 ( 잘 사용안함)
+class Outer4 {
+	
+	public void method() {
+		
+		class LocalInner { // 로컬클래스 - 로컬클래스는 메소드 안에서만 사용이 가능한 클래스이기 때문에 접근제한이 필요가 없다. static 도 붙일수가 없다
+		
+			int x = 100;
+			
+			void disp() {
+				System.out.println("methodInner x: " + x );
+			}
+			
+		}
+		
+		LocalInner inner = new LocalInner();
+		
+		inner.disp();
+		
+	} 
+	
+}
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		Outer4 outer = new Outer4();
+		
+		outer.method();
+
+	}
+}
+*******************************************************************************
+package inner;
+
+// 익명 클래스
+class Outer5 {
+	
+	public void aaa() {
+		System.out.println("aaa");
+	}
+	
+	public void bbb() {
+		System.out.println("bbb");
+	}
+	
+	public void ccc() {
+		System.out.println("ccc");
+	}
+	
+}
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		// 익명 (자식) 클래스
+		// 예를 들어 bbb 메소드를 수정하고 싶으면 원래는 Outer5 클래스를 상속받는 자식 클래스를 만든뒤
+		// bbb 메소드를 오버라이딩 해서 재정의를 하지만, 그냥 한번만 사용하고 싶을때 익명 클래스를 사용하면된다. 
+		Outer5 outer = new Outer5() {
+			
+			@Override // 메소드 재정의
+			public void bbb() {
+				System.out.println("bbbbb");
+			}
+			
+		};
+		
+		outer.aaa();
+		outer.bbb();
+		outer.ccc();
+
+	}
+}
+*******************************************************************************
+** new project -> Java_Lambda 생성 -> lambda 패키지 -> Ex01
+*******************************************************************************
+package lambda;
+
+// 인터페이스가 필요하다.
+interface MyInterface {
+	
+	public void hello();
+	
+}
+
+// 구현클래스 만듬(인터페이스 사용)
+class MyClass implements MyInterface {
+	
+	// 인터페이스의 hello 메소드 재정의(오버라이딩)
+	@Override
+	public void hello() {
+		System.out.println("Hello World");
+	}
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		// 1번째 방식: 인터페이스를 구현한 구현클래스로부터 객체생성을 하여 사용
+		MyClass myClass = new MyClass();
+		myClass.hello();
+		
+		System.out.println();
+		
+		// 2번째 방식: 인터페이스로부터 익명클래스를 만들어서 익명객체 사용
+		MyInterface myInter = new MyInterface() {
+			
+			@Override
+			public void hello() {
+				System.out.println("Hello World!!");
+			}
+			
+		};
+		myInter.hello();
+		
+		System.out.println();
+		
+		// 3번째 방식:  람다식 방법으로
+		// 람다식이란 함수를 하나의 식으로 표현한 것
+		// 함수를 람다식으로 표현하면 메소드의 이름이 필요없기 때문에
+		// 람다식은 익명함수의 한 종류라고 볼 수 있다. 
+		
+		MyInterface inter = () -> {
+			System.out.println("Hello World!!!!!");
+		};
+	
+		inter.hello();
+	}
+}
+*******************************************************************************
+package lambda;
+
+// 어노테이션이란 메타데이터라고 볼 수 있다.
+// 프로그램이 실행할때 추가적인 정보를 제공하면서
+// 필요한 처리를 하는 코드
+// 메타정보는 주정보가 아닌 부가적인 정보이다.
+
+// 람다식으로 구현할 수 있는 인터페이스는
+// 단 하나의 추상메소드를 포함하는 함수형 인터페이스만 가능하다.
+// 두개 이상의 추상메소드가 선언되는 오류를 예방하고자
+// @FunctionalInterface 라는 어노테이션을 사용할 수 있다.
+
+@FunctionalInterface
+interface Greet {
+	
+	// 1. 매개변수가 없고, 반환값이 없는경우
+	public void hello();
+	
+}
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		// 매개변수가 없는경우는 반드시 소괄호() 를 넣어줘야된다
+		Greet greet = () -> {
+			System.out.println("Hello World");
+		};
+		
+		greet.hello();
+		
+		greet = () -> System.out.println("안녕하세요~!");
+		// {} 안에 실행할 코드가 하나만 있으면 중괄호{}를 생략할수가 있다. (실행문이 하나밖에 없다면)
+		greet.hello();
+
+	}
+}
+*******************************************************************************
+package lambda;
+
+// 2. 매개변수가 있고, 반환값이 없는경우
+interface Greet2 {
+	
+	public void hello(String name);
+	
+}
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		Greet2 greet;
+		
+		// 매개변수의 타입은 실행시 대입되는 값에 따라 자동으로 인식된다.
+		// 때문에 매개변수의 타입은 일반적으로 생략한다.
+		greet = (/* String */ name) -> {
+			System.out.println(name + "님 안녕하세요");
+		};
+		
+		greet.hello("홍길동");
+		
+		// 매개변수가 단 1개만 있는경우 소괄호() 생략이 가능하다.
+		// 단 타입을 명시하면 소괄호를 써줘야된다 (예-> (String name) -> System.out.println(name + "님 안녕하세요"); )
+		greet = name -> System.out.println(name + "님 안녕하세요");
+		greet.hello("성춘향");
+
+	}
+}
+*******************************************************************************
+package lambda;
+
+// 3. 매개변수가 없고, 반환값이 있는경우
+interface Greet3 {
+	
+	public String hello();
+	
+}
+
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		Greet3 greet;
+		
+		greet = () -> {
+			return "홍길동님 안녕하세요";
+		};
+		
+		System.out.println(greet.hello());
+		
+		// 실행코드가 return 문만 있는경우
+		// 중괄호{}와 return 문 생략이 가능하다.
+		greet = () -> "성춘향님 안녕하세요";
+		
+		System.out.println(greet.hello());
+		
+	}
+}
+*******************************************************************************
+package lambda;
+
+// 4. 매개변수가 있고, 반환값도 있는 경우
+interface Greet4 {
+	
+	public String hello(String name);
+	
+}
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		Greet4 greet;
+		
+		greet = (name) -> {
+			return name + "님 안녕하세요";
+		};
+		
+		System.out.println(greet.hello("홍길동"));
+		
+		// 매개변수가 하나고, 실행코드가 return 만 있으면
+		// 소괄호(), 중괄호{}, return 생략가능
+		greet = name -> name + "님 안녕하세요";
+		
+		System.out.println(greet.hello("성춘향"));
+
+	}
+}
+*******************************************************************************
+package lambda.practice;
+
+// 매개변수 없고, 반환값 없는경우
+interface Profile1 {
+	public void profile();
+}
+
+// 매개변수가 1개 있고, 반환값 없는경우
+interface Profile2 {
+	public void profile(String name);
+}
+
+// 매개변수가 없고, 반환값만 있는경우
+interface Profile3 {
+	public String profile();
+}
+
+// 매개변수 1개가 있고, 반환값이 있는경우
+interface Profile4 {
+	public String profile(String name);
+}
+
+
+//매개변수 2개, 반환값 있는경우
+interface Profile5 {
+	public String profile(String name, int age);
+}
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		Profile1 profile1;
+		Profile2 profile2;
+		Profile3 profile3;
+		Profile4 profile4;
+		
+		Profile5 profile5;
+		
+		// 람다식으로 profile 메소드 표현하기
+		profile1 = () -> {
+			System.out.println("이름: 홍길동");
+		};
+		
+		profile2 = (name) -> { 
+			System.out.println("이름: " + name);
+		};
+		
+		profile3 = () -> {
+			return "이름: 성춘향";
+		};
+		
+		profile4 = (name) -> {
+			return "이름: " + name;
+		};
+		
+		profile5 = (name, age) -> {
+			return "이름: " + name + ", 나이: " + age;
+		};
+		
+		profile1.profile();
+		profile2.profile("이몽룡");
+		System.out.println(profile3.profile());
+		System.out.println(profile4.profile("이순신"));
+		System.out.println(profile5.profile("팽수", 20));
+		
+	}
+}
+*******************************************************************************
+20240731(수) 15일차
+
+*******************************************************************************
+package lambda;
+
+import java.util.function.*;
+
+public class Ex06 {
+
+	public static void main(String[] args) {
+		
+		// Consumer 함수형 인터페이스
+		// 역할: 소비자역할. 매개값이 있고, 반환값이 없다.
+		
+		Consumer<String> consumer;
+		
+		consumer = (msg) -> {
+			System.out.println("입력값: " + msg);
+		};
+		
+		// 생략
+		//consumer = msg -> System.out.println("입력값: " + msg);
+		
+		consumer.accept("Hello World");
+		
+		int[] array = {1, 2, 3, 4, 5};
+		
+		// 매개변수의 타입은 int[] 타입의 Consumer 함수형 인터페이스 선언 후
+		// 각 배열 요소의 합을 구한 후 출력
+		
+		Consumer<int[]> consumer2;
+		
+		consumer2 = intArray -> {
+			int sum = 0;
+			
+			for(int i : intArray) {
+				sum += i;
+			}
+			
+			System.out.println("배열 요소의 합은: " + sum);
+		};
+		
+		consumer2.accept(array);
+	}
+}
+*******************************************************************************
+package lambda;
+
+import java.util.function.*;
+
+public class Ex07 {
+
+	public static void main(String[] args) {
+		
+		// Supplier 함수형 인터페이스
+		// 역할: 생성자 역할. 매개값이 없고, 반환값이 있다.
+		
+		// 제너릭은 반환타입
+		Supplier<String> supplier;
+		
+		supplier = () -> {
+			return "Hello World";
+		};
+		
+		// 생략
+		// supplier = () -> "Hello World";
+		
+		String msg = supplier.get();
+		
+		System.out.println("얻은 값: " + msg);
+	
+	}
+}
+*******************************************************************************
+package lambda;
+
+import java.util.function.*;
+
+public class Ex08 {
+
+	public static void main(String[] args) {
+		
+		// Function 함수형 인터페이스
+		// 역할: 맵핑(타입변환)하기. 매개값과 리턴값이 있다.
+		
+		Function<String, Integer> function;
+		// 제네릭<> 첫번째 타입은 매개변수 타입, 두번째는 반환타입
+		
+		function = (strNum) -> {
+			int num = Integer.parseInt(strNum);
+			return num;
+		};
+		
+		// 생략
+		// function = strNum -> Integer.parseInt(strNum);
+		
+		int num = function.apply("100");
+		System.out.println("맵핑 값: " + num);
+		
+	}
+}
+*******************************************************************************
+package lambda;
+
+import java.util.function.*;
+
+public class Ex09 {
+
+	public static void main(String[] args) {
+		
+		// Operator 함수형 인터페이스
+		// 역할: 매개값을 연산 후 결과 반환하기
+		
+		UnaryOperator<Integer> unaryOperator;
+		// 하나의 값을 받아서 연산을 수행하고 결과를
+		// 동일한 데이터 형식으로 반환
+		
+		unaryOperator = (num) -> {
+			return num * num;
+		};
+		
+		// 생략
+		// unaryOperator = num -> num * num;
+		
+		int result = unaryOperator.apply(5);
+		System.out.println("5의 제곱: " + result);
+		
+		// BinaryOperator 함수형 인터페이스
+		// 두 개의 동일한 형식의 데이터를 받아서 연산을 수행후 
+		// 그 결과를 동일한 데이터 형식으로 반환
+		
+		BinaryOperator<Integer> binaryOperator;
+		
+		binaryOperator = (a, b) -> {
+			return a + b;
+		};
+		
+		// 생략
+		// binaryOperator = (a, b) -> a + b;
+		
+		int result2 = binaryOperator.apply(10, 20);
+		System.out.println("10 + 20: " + result2);
+		
+	}
+}
+*******************************************************************************
+package lambda;
+
+import java.util.function.*;
+
+public class Ex10 {
+
+	public static void main(String[] args) {
+		
+		// Predicate 함수형 인터페이스
+		// 역할: 매개값을 확인 후 논리값(true / false) 반환
+		
+		Predicate<Integer> predicate;
+		
+		predicate = (num) -> {
+			return num >= 80;
+		};
+		
+		// 생략
+		// predicate = num -> num >= 80;
+		
+		if(predicate.test(77)) {
+			System.out.println("합격 입니다.");
+		} else { 
+			System.out.println("불합격 입니다.");
+		}
+
+	}
+}
+*******************************************************************************
+package lambda;
+
+import java.util.*;
+
+public class Ex11 {
+
+	public static void main(String[] args) {
+		
+		List<String> list = new ArrayList<>();
+		
+		list.add("사과");
+		list.add("딸기");
+		list.add("포도");
+		list.add("바나나");
+		list.add("수박");
+		
+		// forEach 은 Consumer 함수형 인터페이스를 받을수 있다.
+		list.forEach(fruit -> System.out.println(fruit));
+		
+	}
+}
+*******************************************************************************
+** Java_Lambda 프로젝트 -> lambda.practice 패키지 -> Ex02.java 클래스 만들기
+*******************************************************************************
+package lambda.practice;
+
+import java.util.Scanner;
+import java.util.function.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("첫번째 계산할 정수: ");
+		int num1 = scan.nextInt();
+		
+		System.out.print("두번째 계산할 정수: ");
+		int num2 = scan.nextInt();
+		
+		System.out.println("[+, -, *, /] 중 계산할 연산자를 입력해주세요.");
+		System.out.print("입력: ");
+		String operator = scan.next();
+		
+		// 문제: 람다식으로 계산기 만들기
+		// 두 개의 정수와 연산자('+', '-', '*', '/')를 입력으로 받아서
+		// 해당 연산을 수행하는 람다식 작성하기
+		
+		// 입력: 5, 3, +
+		// 출력: 8
+		
+		// BinaryOperator 함수형 인터페이스를 사용하면
+		// 두 개의 입력 값을 받아 연산을 수행할 수 있다.
+		BinaryOperator<Integer> add = (x, y) -> x + y;
+		BinaryOperator<Integer> subtract = (x, y) -> x - y;
+		BinaryOperator<Integer> multiply = (x, y) -> x * y;
+		BinaryOperator<Integer> divide = (x, y) -> x / y;
+		
+		BinaryOperator<Integer> selectedOperator = null;
+		
+		
+		switch(operator) {
+			case "+" :
+				selectedOperator = add;
+				break;
+			case "-" : 
+				selectedOperator = subtract;
+				break;
+			case "*" :
+				selectedOperator = multiply;
+				break;
+			case "/" : 
+				selectedOperator = divide;
+				break;
+			default:
+				System.out.println("연산자가 잘못입력 되었습니다.");
+		}
+		
+		if(selectedOperator != null) {
+			int result = selectedOperator.apply(num1, num2);
+			System.out.println("연산 결과: " + result);
+		}
+		
+		scan.close();
+
+	}
+}
+*******************************************************************************
+** lambda.stream 패키지 새로 만들기 -> Ex01.java 클래스 만들기
+*******************************************************************************
+package lambda.stream;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		
+		List<String> list = Arrays.asList("Melon", "Banana", "Apple", "Strawberry");
+
+		Stream<String> listStream = list.stream();
+		// 원본의 데이터가 아닌 별도의 Stream 을 생성함으로
+		// 원본의 데이터를 변경하지 않는다.
+		
+		Stream<String> sortList = listStream.sorted();
+		// .sorted() : 요소들을 오름차순으로 정렬
+		
+		list.forEach(fruit -> System.out.println("원본 요소: " + fruit));
+		
+		System.out.println();
+		
+		sortList.forEach(fruit -> System.out.println("정렬된 요소: " + fruit));
+		
+	}
+}
+*******************************************************************************
+package lambda.stream;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Ex02 {
+
+	public static void main(String[] args) {
+		
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		
+		Stream<Integer> numbers = list.stream();
+		
+		Stream<Integer> filterNumbers = numbers.filter(num -> num % 2 == 0);
+		
+		List<Integer> FilterList =  filterNumbers.collect(Collectors.toList());
+		// collect 메소드를 사용하여 필터링된 요소들을 수집 후
+		// Collectors.toList(): 수집한 요소들을 리스트로 반환
+		
+		System.out.println("원본: " + list);
+		System.out.println("짝수: " + FilterList);
+
+	}
+}
+*******************************************************************************
+package lambda.stream;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Ex03 {
+
+	public static void main(String[] args) {
+		
+		List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+		
+		Stream<Integer> numberStream = numbers.stream().map(num -> num * 2);
+		
+		List<Integer> newNumbers = numberStream.collect(Collectors.toList());
+		
+		System.out.println("원래 숫자: " + numbers);
+		System.out.println("2를 곱한 결과: " + newNumbers);
+
+	}
+}
+*******************************************************************************
+package lambda.stream;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Ex04 {
+
+	public static void main(String[] args) {
+		
+		List<Integer> numbers = Arrays.asList(1, 1, 2, 2, 2, 3, 4, 5, 5, 5, 6, 6, 7);
+		
+		Stream<Integer> distinctNumbers = numbers.stream().distinct();
+		// .distinct() : 중복된 요소가 제거되고, 새로운 스트림이 반환
+		
+		List<Integer> newNumbers = distinctNumbers.collect(Collectors.toList());
+		
+		System.out.println("원래숫자: " + numbers);
+		System.out.println("중복제거: " + newNumbers);
+
+	}
+}
+*******************************************************************************
+package lambda.stream;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Ex05 {
+
+	public static void main(String[] args) {
+		
+		List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+		
+		int sum = numbers.stream().reduce(0, (num1, num2) -> num1 + num2);
+		// .reduce() : 메소드의 첫번째 매개변수는 초기값이며
+		// 두번째 매개변수는 이진연산자이다.
+		
+		long count = numbers.stream().count();
+		// .count(): 요소의 개수를 반환함. long 타입으로 반환
+		
+		System.out.println("요소의 합: " + sum);
+		System.out.println("요소의 갯수: " + count);
+
+	}
+}
+*******************************************************************************
+20240801(목) 16일차
+*******************************************************************************
+** sungjuk.txt 파일 aaa폴더에 넣기 Java_IO프로젝트에 io.sungjuk 패키지 만들기 
+ -> SungJukMain 클래스 만들기
+*******************************************************************************
+**  내가 문제푼거
+*******************************************************************************
+package io.sungjuk;
+
+import java.io.*;
+
+public class SungJukMain {
+
+	public static void main(String[] args) throws Exception {
+		
+		// sungjuk.txt 파일에는
+		// 이름:국어성적:영어성적:수학성적
+		// 예) 홍길동:85:98:72
+		// 파일에 있는 데이터를 읽어서 각 학생의 성적에 대한
+		// 총점과 각 학생의 평균을 구한 후에
+		// 콘솔뷰에 이름, 총점, 평균 출력하기
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "sungjuk.txt");
+		
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		
+		String name = "";
+		int kor, eng, math, sum, average = 0;
+
+		while(true) {
+			
+			String str = br.readLine();
+			
+			if(str == null) {
+				break;
+			}
+			
+			String[] strArray = str.split(":");
+			
+			name = strArray[0];
+			kor = Integer.parseInt(strArray[1]);
+			eng = Integer.parseInt(strArray[2]);
+			math = Integer.parseInt(strArray[3]);
+			
+			sum = kor + eng + math;
+			average = sum / 3;
+			
+			System.out.println("이름: " + name + ", 총점: " + sum + ", 평균: " + average);
+			System.out.println();
+			
+		}
+		br.close();
+		
+	}
+}
+*******************************************************************************
+** 선생님 답
+*******************************************************************************
+package io.sungjuk;
+
+import java.io.*;
+import java.util.*;
+
+class SungJuk {
+	private String name;
+	private int kor;
+	private int eng;
+	private int math;
+	private int total;
+	private double avg;
+	
+	public SungJuk() {
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getKor() {
+		return kor;
+	}
+
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+
+	public int getEng() {
+		return eng;
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+
+	public int getMath() {
+		return math;
+	}
+
+	public void setMath(int math) {
+		this.math = math;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+	
+}
+
+public class SungJukMainTeacher {
+
+	public static void main(String[] args) throws Exception {
+		
+		// 선생님 답
+		
+		// sungjuk.txt 파일에는
+		// 이름:국어성적:영어성적:수학성적
+		// 예) 홍길동:85:98:72
+		// 파일에 있는 데이터를 읽어서 각 학생의 성적에 대한
+		// 총점과 각 학생의 평균을 구한 후에
+		// 콘솔뷰에 이름, 총점, 평균 출력하기
+		
+		File dir = new File("C:" + File.separator + "aaa");
+		File file = new File(dir, "sungjuk.txt");
+		
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		
+		// 파일 새로 저장
+		FileWriter fw = new FileWriter(dir + File.separator + "newSungJuk.txt");
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		
+		// 파일 읽기
+		List<SungJuk> list = new ArrayList<>();
+		
+		String line = null;
+		
+		while(true) {
+			
+			SungJuk sungJuk = new SungJuk();
+			
+			line = br.readLine();
+			
+			if(line == null) {
+				break;
+			}
+			
+			String[] strArray = line.split(":");
+			
+			for(int i = 0; i < strArray.length; i++) {
+				
+				switch(i) {
+				    case 0:
+				    	sungJuk.setName(strArray[i]);
+				    	break;
+				    case 1:
+				    	sungJuk.setKor(Integer.parseInt(strArray[i]));
+				    	break;
+				    case 2:
+				    	sungJuk.setEng(Integer.parseInt(strArray[i]));
+				    	break;
+				    case 3:
+				    	sungJuk.setMath(Integer.parseInt(strArray[i]));
+				    	break;
+				}
+			}
+			
+			int total = sungJuk.getKor() + sungJuk.getEng() + sungJuk.getMath();
+			
+			sungJuk.setTotal(total);
+			
+			double avg = total / 3.0;
+			
+			sungJuk.setAvg(avg);
+			
+			list.add(sungJuk);
+		
+		}
+		
+		list.forEach(s -> {
+			System.out.println("------------------------------------------");
+			System.out.println("이름: " + s.getName());
+			System.out.println("국어점수: " + s.getKor());
+			System.out.println("영어점수: " + s.getEng());
+			System.out.println("수학점수: " + s.getMath());
+			System.out.println("총점: " + s.getTotal());
+			System.out.printf("평균: %.2f\n", s.getAvg());
+			System.out.println("------------------------------------------");
+		});
+		
+		// 파일 새로 저장
+		for(SungJuk s : list) {
+			pw.printf("이름: %s, 국어점수: %d, 영어점수: %d, 수학점수: %d, 총점: %d, 평균: %.2f\n", s.getName(), s.getKor(), s.getEng(), s.getMath(), s.getTotal(), s.getAvg());
+			pw.flush();
+		}
+		pw.close();
+		br.close();
+	}
+}
+*******************************************************************************
+
